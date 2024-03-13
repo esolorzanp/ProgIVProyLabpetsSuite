@@ -40,6 +40,17 @@ public class EspecieControl implements ActionListener {
 
     private void onSearch() {
         System.out.println("Button Search selected");
+        System.out.println("'" + view.searchTextField.getText() + "'");
+        String strSeasrch = view.searchTextField.getText();
+        if (strSeasrch.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese una especie a buscar", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!dao.exist(strSeasrch)) {
+            JOptionPane.showMessageDialog(null, "Especie no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Especie e = dao.getByEspecie(strSeasrch);
+            view.especieTextField.setText(e.getEspDescripcion());
+            view.estadoComboBox.setSelectedItem(e.getEspEstado());
+        }
     }
 
     private void onAdd() {
@@ -58,10 +69,14 @@ public class EspecieControl implements ActionListener {
         this.view.especieTextField.setText("");
         this.view.searchTextField.setText("");
         this.view.estadoComboBox.setSelectedIndex(-1);
-        System.out.println("Button clear selected");
+//        System.out.println("Button clear selected");
     }
 
     public void iniciar() {
+        this.view.estadoComboBox.addItem("Activo");
+        this.view.estadoComboBox.addItem("Inactivo");
+        this.view.estadoComboBox.setSelectedIndex(-1);
+
         this.view.setTitle("Especies");
         this.view.setSize(500, 300);
         this.view.setContentPane(this.view.panel1);

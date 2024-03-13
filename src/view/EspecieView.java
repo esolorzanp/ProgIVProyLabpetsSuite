@@ -17,4 +17,7 @@ public class EspecieView extends JFrame {
     private JPanel panel3;
     private JPanel panel4;
     private JPanel panel5;
+
+    public EspecieView() throws HeadlessException {
+    }
 }

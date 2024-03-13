@@ -53,6 +53,28 @@ public class EspecieDao extends ConnectionDB {
         return null;
     }
 
+    public Especie getByEspecie(String strEspecie) {
+        String sql = "SELECT * FROM especie WHERE esp_descripcion = ?";
+        Connection conn = this.connect();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, strEspecie);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Especie e = new Especie();
+                e.setEspId(rs.getInt("esp_id"));
+                e.setEspDescripcion(rs.getString("esp_descripcion"));
+                e.setEspEstado(rs.getString("esp_estado"));
+                System.out.println(e);
+                return e;
+            }
+            this.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean exist(String strDescripcion) {
         String sql = "SELECT * FROM especie WHERE esp_descripcion = ?";
         Connection conn = this.connect();
