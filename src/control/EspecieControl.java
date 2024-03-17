@@ -12,6 +12,7 @@ public class EspecieControl implements ActionListener {
     private final Especie model;
     private final EspecieDao dao;
     private final EspecieView view;
+    private Especie eForm;
 
     public EspecieControl(Especie model, EspecieDao dao, EspecieView view) {
         this.model = model;
@@ -39,8 +40,6 @@ public class EspecieControl implements ActionListener {
     }
 
     private void onSearch() {
-        System.out.println("Button Search selected");
-        System.out.println("'" + view.searchTextField.getText() + "'");
         String strSeasrch = view.searchTextField.getText();
         if (strSeasrch.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese una especie a buscar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -48,21 +47,79 @@ public class EspecieControl implements ActionListener {
             JOptionPane.showMessageDialog(null, "Especie no existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             Especie e = dao.getByEspecie(strSeasrch);
-            view.especieTextField.setText(e.getEspDescripcion());
-            view.estadoComboBox.setSelectedItem(e.getEspEstado());
+            setFieldsForm(e);
         }
     }
 
     private void onAdd() {
-        System.out.println("Button Add selected");
+        if (validateFieldsForm()) {
+            Especie e = this.getFieldsForm();
+            if (dao.exist(e.getEspDescripcion())) {
+                JOptionPane.showMessageDialog(null, "Especie ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (!dao.insert(e)) {
+                JOptionPane.showMessageDialog(null, "Registro no guardado", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Registro grabado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    private boolean validateFieldsForm() {
+        String strEspecie = view.especieTextField.getText();
+        int intItem = view.estadoComboBox.getSelectedIndex();
+        String strEstado = String.valueOf(view.estadoComboBox.getSelectedItem());
+        if (strEspecie.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo Especie no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (intItem == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione un estado", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (strEstado.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un estado", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private Especie getFieldsForm() {
+        String strEspecie = view.especieTextField.getText();
+        String strEstado = String.valueOf(view.estadoComboBox.getSelectedItem());
+        int intId = dao.exist(strEspecie) ? dao.getByEspecie(strEspecie).getEspId() : -1;
+        this.eForm = new Especie(intId, strEspecie, strEstado);
+        return eForm;
+    }
+
+    private void setFieldsForm(Especie e) {
+        this.view.especieTextField.setText(e.getEspDescripcion());
+        this.view.estadoComboBox.setSelectedItem(e.getEspEstado());
     }
 
     private void onUpdate() {
-        System.out.println("Button Update selected");
+        if (validateFieldsForm()) {
+            Especie e = this.getFieldsForm();
+            if (!dao.exist(e.getEspDescripcion())) {
+                JOptionPane.showMessageDialog(null, "Especie no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (!dao.update(e)) {
+                JOptionPane.showMessageDialog(null, "Registro no guardado", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Registro grabado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     private void onDelete() {
-        System.out.println("Button Delete selected");
+        if (validateFieldsForm()) {
+            Especie e = this.getFieldsForm();
+            if (!dao.exist(e.getEspDescripcion())) {
+                JOptionPane.showMessageDialog(null, "Especie no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (!dao.delete(e.getEspId())) {
+                JOptionPane.showMessageDialog(null, "Registro no eliminado", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     private void onClearForm() {

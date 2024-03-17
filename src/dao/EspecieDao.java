@@ -66,9 +66,9 @@ public class EspecieDao extends ConnectionDB {
                 e.setEspDescripcion(rs.getString("esp_descripcion"));
                 e.setEspEstado(rs.getString("esp_estado"));
                 System.out.println(e);
+                this.close();
                 return e;
             }
-            this.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,9 +88,9 @@ public class EspecieDao extends ConnectionDB {
                 e.setEspDescripcion(rs.getString("esp_descripcion"));
                 e.setEspEstado(rs.getString("esp_estado"));
                 System.out.println(e);
+                this.close();
                 return true;
             }
-            this.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,12 +138,12 @@ public class EspecieDao extends ConnectionDB {
         return false;
     }
 
-    public boolean delete(String strDescripcion) {
-        String sql = "DELETE FROM especie WHERE esp_descripcion = ?";
+    public boolean delete(int intId) {
+        String sql = "DELETE FROM especie WHERE esp_id = ?";
         Connection conn = this.connect();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, strDescripcion);
+            ps.setInt(1, intId);
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
