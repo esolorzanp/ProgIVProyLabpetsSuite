@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class EspecieView extends JFrame {
     public JTextField searchTextField;
+    public JTextField idTextField;
     public JTextField especieTextField;
     public JComboBox estadoComboBox;
     public JButton searchButton;
@@ -16,6 +17,7 @@ public class EspecieView extends JFrame {
     private JPanel panel2;
     private JPanel panel3;
     private JPanel panel4;
+    public JTable dataTable;
     private JPanel panel5;
 
     public EspecieView() throws HeadlessException {

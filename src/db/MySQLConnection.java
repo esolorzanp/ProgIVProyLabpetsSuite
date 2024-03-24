@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionDB {
+public class MySQLConnection {
     private Connection connection;
     private String serverDb = "localhost";
     private String portDb = "3306";
@@ -14,7 +14,7 @@ public class ConnectionDB {
     private String urlDb = "jdbc:mysql://" + serverDb + ":" + portDb + '/' + dataBaseDb;
 
 
-    public Connection connect() {
+    public Connection conectar() {
         try {
             this.connection = DriverManager.getConnection(urlDb, userDb, passDb);
             System.out.println("[ INFO ] Conexión DB realizada");
@@ -26,7 +26,7 @@ public class ConnectionDB {
         return this.connection;
     }
 
-    public boolean close() {
+    public boolean desconectar() {
         try {
             this.connection.close();
             System.out.println("[ INFO ] Cierre conexión DB realizada");
