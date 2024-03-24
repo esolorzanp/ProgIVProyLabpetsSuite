@@ -114,4 +114,24 @@ public class EspecieDao extends MySQLConnection {
         }
         return false;
     }
+
+    public boolean delete(Especie especie) {
+        String sql = "DELETE FROM especie WHERE esp_id = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, especie.getEspId());
+            int n = ps.executeUpdate();
+            if (n > 0) {
+                System.out.println("[ INFO ] Delete ejecutado con éxito");
+                return true;
+            }
+            this.desconectar();
+        } catch (SQLException e) {
+            System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

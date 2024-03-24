@@ -6,10 +6,9 @@ import view.EspecieView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class EspecieControl implements ActionListener {
+public class EspecieControl implements ActionListener, KeyListener, MouseListener {
     private Especie model;
     private final EspecieDao dao;
     private final EspecieView view;
@@ -24,6 +23,8 @@ public class EspecieControl implements ActionListener {
         this.view.addButton.addActionListener(this);
         this.view.updateButton.addActionListener(this);
         this.view.deleteButton.addActionListener(this);
+        this.view.dataTable.addKeyListener(this);
+        this.view.dataTable.addMouseListener(this);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class EspecieControl implements ActionListener {
             this.model.setEspEstado(String.valueOf(this.view.estadoComboBox.getSelectedItem()));
             if (dao.insert(this.model)) {
                 listar();
-                JOptionPane.showMessageDialog(null, "Registro grabado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Registro creado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                 this.limpiar();
             }
         }
@@ -55,10 +56,66 @@ public class EspecieControl implements ActionListener {
             this.model.setEspEstado(String.valueOf(this.view.estadoComboBox.getSelectedItem()));
             if (dao.update(this.model)) {
                 listar();
-                JOptionPane.showMessageDialog(null, "Registro grabado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Registro modificado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
                 this.limpiar();
             }
         }
+        if (e.getSource() == this.view.deleteButton) {
+            this.model.setEspId(Integer.parseInt(this.view.idTextField.getText()));
+            if (dao.delete(this.model)) {
+                listar();
+                JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+                this.limpiar();
+            }
+        }
+
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == 38 || e.getKeyCode() == 40) {
+            this.getRowSelected();
+        }
+
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getButton() == 1) {
+            this.getRowSelected();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     private void limpiar() {
@@ -92,4 +149,12 @@ public class EspecieControl implements ActionListener {
         this.listar();
     }
 
+    private void getRowSelected() {
+        int row = this.view.dataTable.getSelectedRow();
+        this.model.setEspId((Integer) this.view.dataTable.getModel().getValueAt(row, 0));
+        this.model = dao.getById(this.model);
+        this.view.idTextField.setText(String.valueOf(this.model.getEspId()));
+        this.view.especieTextField.setText(this.model.getEspDescripcion());
+        this.view.estadoComboBox.setSelectedItem(this.model.getEspEstado());
+    }
 }
