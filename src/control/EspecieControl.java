@@ -6,9 +6,10 @@ import view.EspecieView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 
-public class EspecieControl implements ActionListener, KeyListener, MouseListener {
+public class EspecieControl implements ActionListener {
     private Especie model;
     private final EspecieDao dao;
     private final EspecieView view;
@@ -18,126 +19,132 @@ public class EspecieControl implements ActionListener, KeyListener, MouseListene
         this.model = model;
         this.dao = dao;
         this.view = view;
-        this.view.clearButton.addActionListener(this);
-        this.view.searchButton.addActionListener(this);
-        this.view.addButton.addActionListener(this);
-        this.view.updateButton.addActionListener(this);
-        this.view.deleteButton.addActionListener(this);
-        this.view.dataTable.addKeyListener(this);
-        this.view.dataTable.addMouseListener(this);
+        this.view.btnLimpiar.addActionListener(this);
+        this.view.btnBuscar.addActionListener(this);
+        this.view.btnAdicionar.addActionListener(this);
+        this.view.btnModificar.addActionListener(this);
+        this.view.btnEliminar.addActionListener(this);
+//        this.view.dataTable.addKeyListener(this);
+//        this.view.dataTable.addMouseListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.view.searchButton) {
-            this.model.setEspId(Integer.parseInt(this.view.searchTextField.getText()));
-            if (dao.exist(this.model)) {
-                this.limpiar();
-                this.model = dao.getById(this.model);
-                this.view.idTextField.setText(String.valueOf(this.model.getEspId()));
-                this.view.especieTextField.setText(this.model.getEspDescripcion());
-                this.view.estadoComboBox.setSelectedItem(this.model.getEspEstado());
-            }
+        if (e.getSource() == this.view.btnBuscar) {
+            this.buscar();
         }
-        if (e.getSource() == this.view.clearButton)
+        if (e.getSource() == this.view.btnLimpiar)
             this.limpiar();
-        if (e.getSource() == this.view.addButton) {
-            this.model.setEspDescripcion(this.view.especieTextField.getText());
-            this.model.setEspEstado(String.valueOf(this.view.estadoComboBox.getSelectedItem()));
-            if (dao.insert(this.model)) {
-                listar();
-                JOptionPane.showMessageDialog(null, "Registro creado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                this.limpiar();
-            }
+        if (e.getSource() == this.view.btnAdicionar) {
+            this.adicionar();
         }
-        if (e.getSource() == this.view.updateButton) {
-            this.model.setEspId(Integer.parseInt(this.view.idTextField.getText()));
-            this.model.setEspDescripcion(this.view.especieTextField.getText());
-            this.model.setEspEstado(String.valueOf(this.view.estadoComboBox.getSelectedItem()));
-            if (dao.update(this.model)) {
-                listar();
-                JOptionPane.showMessageDialog(null, "Registro modificado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                this.limpiar();
-            }
+        if (e.getSource() == this.view.btnModificar) {
+            this.modificar();
         }
-        if (e.getSource() == this.view.deleteButton) {
-            this.model.setEspId(Integer.parseInt(this.view.idTextField.getText()));
-            if (dao.delete(this.model)) {
-                listar();
-                JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                this.limpiar();
-            }
+        if (e.getSource() == this.view.btnEliminar) {
+            this.eliminar();
         }
 
     }
 
+//    @Override
+//    public void keyTyped(KeyEvent e) {
+//
+//    }
+//
+//    @Override
+//    public void keyPressed(KeyEvent e) {
+//
+//    }
+//
+//    @Override
+//    public void keyReleased(KeyEvent e) {
+//        if (e.getKeyCode() == 38 || e.getKeyCode() == 40) {
+//            this.getRowSelected();
+//        }
+//
+//    }
+//
+//    @Override
+//    public void mouseClicked(MouseEvent e) {
+//        if (e.getButton() == 1) {
+//            this.getRowSelected();
+//        }
+//    }
+//
+//    @Override
+//    public void mousePressed(MouseEvent e) {
+//
+//    }
+//
+//    @Override
+//    public void mouseReleased(MouseEvent e) {
+//
+//    }
+//
+//    @Override
+//    public void mouseEntered(MouseEvent e) {
+//
+//    }
+//
+//    @Override
+//    public void mouseExited(MouseEvent e) {
+//
+//    }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == 38 || e.getKeyCode() == 40) {
-            this.getRowSelected();
+    private void adicionar() {
+        this.model.setEspDescripcion(this.view.txtEspecie.getText());
+        this.model.setEspEstado(String.valueOf(this.view.cmbEstado.getSelectedItem()));
+        if (dao.insert(this.model)) {
+            listar();
+            JOptionPane.showMessageDialog(null, "Registro creado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiar();
         }
-
     }
 
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == 1) {
-            this.getRowSelected();
+    private void buscar() {
+        this.model.setEspId(Integer.parseInt(this.view.txtBuscar.getText()));
+        if (dao.getById(this.model)) {
+            this.limpiar();
+            this.view.txtId.setText(String.valueOf(this.model.getEspId()));
+            this.view.txtEspecie.setText(this.model.getEspDescripcion());
+            this.view.cmbEstado.setSelectedItem(this.model.getEspEstado());
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    private void limpiar() {
-        this.view.especieTextField.setText("");
-        this.view.idTextField.setText("");
-        this.view.searchTextField.setText("");
-        this.view.estadoComboBox.setSelectedIndex(-1);
-    }
-
-    private void listar() {
-        DefaultTableModel model = (DefaultTableModel) view.dataTable.getModel();
-        model.setColumnIdentifiers(new Object[]{"Id", "Especie", "Estado"});
-        model.setRowCount(0);
-        for (Especie e : dao.getAll(1)) {
-            model.addRow(new Object[]{e.getEspId(), e.getEspDescripcion(), e.getEspEstado()});
+    private void eliminar() {
+        this.model.setEspId(Integer.parseInt(this.view.txtId.getText()));
+        if (dao.delete(this.model)) {
+            listar();
+            JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiar();
         }
+    }
+
+    private void getRowSelected() {
+        int row = this.view.dataTable.getSelectedRow();
+        this.model.setEspId((Integer) this.view.dataTable.getModel().getValueAt(row, 0));
+        this.view.txtId.setText(String.valueOf(this.model.getEspId()));
+        this.view.txtEspecie.setText(this.model.getEspDescripcion());
+        this.view.cmbEstado.setSelectedItem(this.model.getEspEstado());
     }
 
     public void iniciar() {
-        this.view.estadoComboBox.addItem("Activo");
-        this.view.estadoComboBox.addItem("Inactivo");
-        this.view.estadoComboBox.setSelectedIndex(-1);
+        this.view.cmbEstado.addItem("Activo");
+        this.view.cmbEstado.addItem("Inactivo");
+        this.view.cmbEstado.setSelectedIndex(-1);
+
+        Font fontLabels = new Font("Verdana", Font.PLAIN, 16);
+        Font fontButtons = new Font("Verdana", Font.PLAIN, 16);
+        this.view.lblBuscar.setFont(fontLabels);
+        this.view.lblId.setFont(fontLabels);
+        this.view.lblEspecie.setFont(fontLabels);
+        this.view.lblEstado.setFont(fontLabels);
+        this.view.btnBuscar.setFont(fontButtons);
+        this.view.btnLimpiar.setFont(fontButtons);
+        this.view.btnAdicionar.setFont(fontButtons);
+        this.view.btnModificar.setFont(fontButtons);
+        this.view.btnEliminar.setFont(fontButtons);
 
         this.view.setTitle("Especies");
         this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,12 +156,30 @@ public class EspecieControl implements ActionListener, KeyListener, MouseListene
         this.listar();
     }
 
-    private void getRowSelected() {
-        int row = this.view.dataTable.getSelectedRow();
-        this.model.setEspId((Integer) this.view.dataTable.getModel().getValueAt(row, 0));
-        this.model = dao.getById(this.model);
-        this.view.idTextField.setText(String.valueOf(this.model.getEspId()));
-        this.view.especieTextField.setText(this.model.getEspDescripcion());
-        this.view.estadoComboBox.setSelectedItem(this.model.getEspEstado());
+    private void modificar() {
+        this.model.setEspId(Integer.parseInt(this.view.txtId.getText()));
+        this.model.setEspDescripcion(this.view.txtEspecie.getText());
+        this.model.setEspEstado(String.valueOf(this.view.cmbEstado.getSelectedItem()));
+        if (dao.update(this.model)) {
+            listar();
+            JOptionPane.showMessageDialog(null, "Registro modificado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiar();
+        }
+    }
+
+    private void limpiar() {
+        this.view.txtEspecie.setText("");
+        this.view.txtId.setText("");
+        this.view.txtBuscar.setText("");
+        this.view.cmbEstado.setSelectedIndex(-1);
+    }
+
+    private void listar() {
+        DefaultTableModel model = (DefaultTableModel) view.dataTable.getModel();
+        model.setColumnIdentifiers(new Object[]{"Id", "Especie", "Estado"});
+        model.setRowCount(0);
+        for (Especie e : dao.getAll(1)) {
+            model.addRow(new Object[]{e.getEspId(), e.getEspDescripcion(), e.getEspEstado()});
+        }
     }
 }

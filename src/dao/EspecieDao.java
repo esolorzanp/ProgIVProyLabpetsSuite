@@ -34,7 +34,7 @@ public class EspecieDao extends MySQLConnection {
         return null;
     }
 
-    public Especie getById(Especie especie) {
+    public boolean getById(Especie especie) {
         String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie WHERE esp_id = ?";
         Connection conn = this.conectar();
         try {
@@ -46,12 +46,12 @@ public class EspecieDao extends MySQLConnection {
                 especie.setEspDescripcion(rs.getString("esp_descripcion"));
                 especie.setEspEstado(rs.getString("esp_estado"));
                 this.desconectar();
-                return especie;
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return especie;
+        return false;
     }
 
     public Boolean exist(Especie especie) {
