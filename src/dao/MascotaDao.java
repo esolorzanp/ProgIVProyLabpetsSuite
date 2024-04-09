@@ -122,26 +122,6 @@ public class MascotaDao extends MySQLConnection {
         return false;
     }
 
-    //    public Boolean exist(Examen examen) {
-//        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM examen WHERE esp_id = ?";
-//        Connection conn = this.conectar();
-//        try {
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setInt(1, examen.getEspId());
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                examen.setEspId(rs.getInt("esp_id"));
-//                examen.setEspDescripcion(rs.getString("esp_descripcion"));
-//                examen.setEspEstado(rs.getString("esp_estado"));
-//                this.desconectar();
-//                return true;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
-
     // opt: 0=Todos; 1=Solo activos
     public List<Mascota> getTodos(int optEstado) {
         List<Mascota> list = new ArrayList<>();

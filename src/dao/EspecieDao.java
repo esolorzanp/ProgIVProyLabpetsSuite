@@ -67,26 +67,6 @@ public class EspecieDao extends MySQLConnection {
         return false;
     }
 
-    //    public Boolean exist(Especie especie) {
-//        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie WHERE esp_id = ?";
-//        Connection conn = this.conectar();
-//        try {
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setInt(1, especie.getEspId());
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                especie.setEspId(rs.getInt("esp_id"));
-//                especie.setEspDescripcion(rs.getString("esp_descripcion"));
-//                especie.setEspEstado(rs.getString("esp_estado"));
-//                this.desconectar();
-//                return true;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
-    // opt: 0=Todos; 1=Solo activos
     public List<Especie> getTodos(int optEstado) {
         List<Especie> list = new ArrayList<>();
         String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie"
