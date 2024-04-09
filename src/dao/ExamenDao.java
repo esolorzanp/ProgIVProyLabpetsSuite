@@ -12,22 +12,22 @@ import java.util.List;
 
 public class ExamenDao extends MySQLConnection {
     public boolean adicionar(Examen ex) {
-        String sql = "INSERT INTO ex\n" +
-                "(exa_id,\n" +
-                "exa_descripcion,\n" +
-                "exa_valor,\n" +
-                "exa_tipo,\n" +
-                "exa_estado,\n" +
-                "exa_usu_anu,\n" +
-                "exa_fecha_anu)\n" +
-                "VALUES\n" +
-                "?,\n" +            // 0 exa_id
-                "?,\n" +            // 1 exa_descripcion
-                "?,\n" +            // 2 exa_valor
-                "?,\n" +            // 3 exa_tipo
-                "?,\n" +            // 4 exa_estado
-                "?,\n" +            // 5 exa_usu_anu
-                "?);\n";            // 6 exa_fecha_anu
+        String sql = "INSERT INTO examen " +
+                "(exa_id, " +
+                "exa_descripcion, " +
+                "exa_valor, " +
+                "exa_tipo, " +
+                "exa_estado, " +
+                "exa_usu_anu, " +
+                "exa_fecha_anu) " +
+                "VALUES " +
+                "?, " +            // 0 exa_id
+                "?, " +            // 1 exa_descripcion
+                "?, " +            // 2 exa_valor
+                "?, " +            // 3 exa_tipo
+                "?, " +            // 4 exa_estado
+                "?, " +            // 5 exa_usu_anu
+                "?)";              // 6 exa_fecha_anu
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -51,15 +51,15 @@ public class ExamenDao extends MySQLConnection {
     }
 
     public boolean buscarId(Examen ex) {
-        String sql = "SELECT exa_id,\n" +
-                "    exa_descripcion,\n" +
-                "    exa_valor,\n" +
-                "    exa_tipo,\n" +
-                "    exa_estado,\n" +
-                "    exa_usu_anu,\n" +
-                "    exa_fecha_anu\n" +
-                "FROM ex\n" +
-                "WHERE exa_estado = 'Activo'\n" +
+        String sql = "SELECT exa_id, " +
+                "    exa_descripcion, " +
+                "    exa_valor, " +
+                "    exa_tipo, " +
+                "    exa_estado, " +
+                "    exa_usu_anu, " +
+                "    exa_fecha_anu " +
+                "FROM ex " +
+                "WHERE exa_estado = 'Activo' " +
                 "AND exa_id = ?";
         Connection conn = this.conectar();
         try {
@@ -83,7 +83,7 @@ public class ExamenDao extends MySQLConnection {
     }
 
     public boolean eliminar(Examen ex) {
-        String sql = "DELETE FROM examen WHERE ?";
+        String sql = "DELETE FROM examen WHERE exa_id ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -124,14 +124,14 @@ public class ExamenDao extends MySQLConnection {
     // opt: 0=Todos; 1=Solo activos
     public List<Examen> getTodos(int optEstado) {
         List<Examen> list = new ArrayList<>();
-        String sql = "SELECT exa_id,\n" +
-                "    exa_descripcion,\n" +
-                "    exa_valor,\n" +
-                "    exa_tipo,\n" +
-                "    exa_estado,\n" +
-                "    exa_usu_anu,\n" +
-                "    exa_fecha_anu\n" +
-                "FROM examen\n"
+        String sql = "SELECT exa_id, " +
+                "    exa_descripcion, " +
+                "    exa_valor, " +
+                "    exa_tipo, " +
+                "    exa_estado, " +
+                "    exa_usu_anu, " +
+                "    exa_fecha_anu " +
+                "FROM examen "
                 + (optEstado == 1 ? " where exa_estado = 'Activo';" : "");
         Connection conn = this.conectar();
         try {
@@ -158,15 +158,14 @@ public class ExamenDao extends MySQLConnection {
     }
 
     public boolean modificar(Examen ex) {
-        String sql = "UPDATE labpets2.ex\n" +
-                "SET\n" +
-                "exa_descripcion = ?,\n" +
-                "exa_valor = ?,\n" +
-                "exa_tipo = ?,\n" +
-                "exa_estado = ?,\n" +
-                "exa_usu_anu = ?,\n" +
-                "exa_fecha_anu = ?\n" +
-                "WHERE exa_id = ?;\n";
+        String sql = "UPDATE examen SET " +
+                "exa_descripcion = ?, " +
+                "exa_valor = ?, " +
+                "exa_tipo = ?, " +
+                "exa_estado = ?, " +
+                "exa_usu_anu = ?, " +
+                "exa_fecha_anu = ? " +
+                "WHERE exa_id = ? ";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

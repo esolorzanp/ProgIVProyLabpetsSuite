@@ -13,31 +13,43 @@ import java.util.List;
 
 public class MascotaDao extends MySQLConnection {
     public boolean adicionar(Mascota m) {
-        String sql = "INSERT INTO m\n" +
-                "(exa_id,\n" +
-                "exa_descripcion,\n" +
-                "exa_valor,\n" +
-                "exa_tipo,\n" +
-                "exa_estado,\n" +
-                "exa_usu_anu,\n" +
-                "exa_fecha_anu)\n" +
-                "VALUES\n" +
-                "?,\n" +            // 0 exa_id
-                "?,\n" +            // 1 exa_descripcion
-                "?,\n" +            // 2 exa_valor
-                "?,\n" +            // 3 exa_tipo
-                "?,\n" +            // 4 exa_estado
-                "?,\n" +            // 5 exa_usu_anu
-                "?);\n";            // 6 exa_fecha_anu
+        String sql = "INSERT INTO mascota " +
+                "(mas_id, " +
+                "mas_nombre, " +
+                "mas_edad, " +
+                "mas_propietario, " +
+                "mas_sexo, " +
+                "raza_id, " +
+                "usu_crea, " +
+                "fecha_crea, " +
+                "usu_anula, " +
+                "fecha_anula, " +
+                "mas_estado) " +
+                "VALUES " +
+                "(?, " +           //  0 mas_id
+                "?, " +            //  1 mas_nombre
+                "?, " +            //  2 mas_edad
+                "?, " +            //  3 mas_propietario
+                "?, " +            //  4 mas_sexo
+                "?, " +            //  5 raza_id
+                "?, " +            //  6 usu_crea
+                "?, " +            //  7 fecha_crea
+                "?, " +            //  8 usu_anula
+                "?, " +            //  9 fecha_anula
+                "?)";               // 10 mas_estado
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, m.getExaDescripcion());
-            ps.setInt(2, m.getExaValor());
-            ps.setString(3, m.getExaTipo());
-            ps.setString(4, m.getExaEstado());
-            ps.setString(5, m.getExaUsuAnu());
-            ps.setTimestamp(6, m.getExaFechaAnu());
+            ps.setString(1, m.getMasNombre());
+            ps.setInt(2, m.getMasEdad());
+            ps.setString(3, m.getMasPropietario());
+            ps.setString(4, m.getMasSexo());
+            ps.setInt(5, m.getRazaId());
+            ps.setString(6, m.getUsuCrea());
+            ps.setDate(7, m.getFechaCrea());
+            ps.setString(8, m.getUsuAnula());
+            ps.setDate(9, m.getFechaAnula());
+            ps.setString(10, m.getMasEstado());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Insert ejecutado con éxito");
@@ -52,28 +64,36 @@ public class MascotaDao extends MySQLConnection {
     }
 
     public boolean buscarId(Mascota m) {
-        String sql = "SELECT exa_id,\n" +
-                "    exa_descripcion,\n" +
-                "    exa_valor,\n" +
-                "    exa_tipo,\n" +
-                "    exa_estado,\n" +
-                "    exa_usu_anu,\n" +
-                "    exa_fecha_anu\n" +
-                "FROM m\n" +
-                "WHERE exa_estado = 'Activo'\n" +
-                "AND exa_id = ?";
+        String sql = "SELECT mas_id," +
+                "    mas_nombre, " +
+                "    mas_edad, " +
+                "    mas_propietario, " +
+                "    mas_sexo, " +
+                "    raza_id, " +
+                "    usu_crea, " +
+                "    fecha_crea, " +
+                "    usu_anula, " +
+                "    fecha_anula, " +
+                "    mas_estado " +
+                "FROM mascota " +
+                "WHERE mas_id ) ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, m.getExaId());
+            ps.setInt(1, m.getMasId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                m.setExaId(rs.getInt("exa_id"));
-                m.setExaValor(rs.getInt("exa_valor"));
-                m.setExaTipo(rs.getString("exa_tipo"));
-                m.setExaEstado(rs.getString("exa_estado"));
-                m.setExaUsuAnu(rs.getString("exa_usu_anu"));
-                m.setExaFechaAnu(rs.getTimestamp("exa_fecha_anu"));
+                m.setMasId(rs.getInt("mas_id"));
+                m.setMasNombre(rs.getString("mas_nombre"));
+                m.setMasEdad(rs.getInt("mas_edad"));
+                m.setMasPropietario(rs.getString("mas_propietario"));
+                m.setMasSexo(rs.getString("mas_sexo"));
+                m.setRazaId(rs.getInt("raza_id"));
+                m.setUsuCrea(rs.getString("usu_crea"));
+                m.setFechaCrea(rs.getDate("fecha_crea"));
+                m.setUsuAnula(rs.getString("usu_anula"));
+                m.setFechaAnula(rs.getDate("fecha_anula"));
+                m.setMasEstado(rs.getString("mas_estado"));
                 this.desconectar();
                 return true;
             }
@@ -84,11 +104,11 @@ public class MascotaDao extends MySQLConnection {
     }
 
     public boolean eliminar(Mascota m) {
-        String sql = "DELETE FROM examen WHERE ?";
+        String sql = "DELETE FROM mascota WHERE mas_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, m.getExaId());
+            ps.setInt(0, m.getMasId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
@@ -125,18 +145,18 @@ public class MascotaDao extends MySQLConnection {
     // opt: 0=Todos; 1=Solo activos
     public List<Mascota> getTodos(int optEstado) {
         List<Mascota> list = new ArrayList<>();
-        String sql = "SELECT mas_id,\n" +
-                "    mas_nombre,\n" +
-                "    mas_edad,\n" +
-                "    mas_propietario,\n" +
-                "    mas_sexo,\n" +
-                "    raza_id,\n" +
-                "    usu_crea,\n" +
-                "    fecha_crea,\n" +
-                "    usu_anula,\n" +
-                "    fecha_anula,\n" +
-                "    mas_estado\n" +
-                "FROM mascota\n"
+        String sql = "SELECT mas_id, " +
+                "    mas_nombre, " +
+                "    mas_edad, " +
+                "    mas_propietario, " +
+                "    mas_sexo, " +
+                "    raza_id, " +
+                "    usu_crea, " +
+                "    fecha_crea, " +
+                "    usu_anula, " +
+                "    fecha_anula, " +
+                "    mas_estado " +
+                "FROM mascota "
                 + (optEstado == 1 ? " WHERE mas_estado = 'Activo';" : "");
         Connection conn = this.conectar();
         try {
@@ -168,25 +188,33 @@ public class MascotaDao extends MySQLConnection {
     }
 
     public boolean modificar(Mascota m) {
-        String sql = "UPDATE labpets2.m\n" +
-                "SET\n" +
-                "exa_descripcion = ?,\n" +
-                "exa_valor = ?,\n" +
-                "exa_tipo = ?,\n" +
-                "exa_estado = ?,\n" +
-                "exa_usu_anu = ?,\n" +
-                "exa_fecha_anu = ?\n" +
-                "WHERE exa_id = ?;\n";
+        String sql = "UPDATE mascota " +
+                "SET " +
+                "mas_nombre = ?, " +
+                "mas_edad = ?, " +
+                "mas_propietario = ?, " +
+                "mas_sexo = ?, " +
+                "raza_id = ?, " +
+                "usu_crea = ?, " +
+                "fecha_crea = ?, " +
+                "usu_anula = ?, " +
+                "fecha_anula = ?, " +
+                "mas_estado = ? " +
+                "WHERE mas_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(0, m.getExaDescripcion());
-            ps.setInt(1, m.getExaValor());
-            ps.setString(2, m.getExaTipo());
-            ps.setString(3, m.getExaEstado());
-            ps.setString(4, m.getExaUsuAnu());
-            ps.setTimestamp(5, m.getExaFechaAnu());
-            ps.setInt(6, m.getExaId());
+            ps.setString(0, m.getMasNombre());
+            ps.setInt(1, m.getMasEdad());
+            ps.setString(2, m.getMasPropietario());
+            ps.setString(3, m.getMasSexo());
+            ps.setInt(4, m.getRazaId());
+            ps.setString(5, m.getUsuCrea());
+            ps.setDate(6, m.getFechaCrea());
+            ps.setString(7, m.getUsuAnula());
+            ps.setDate(8, m.getFechaAnula());
+            ps.setString(9, m.getMasEstado());
+            ps.setInt(10, m.getMasId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");
