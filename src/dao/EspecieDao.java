@@ -8,8 +8,86 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EspecieDao extends MySQLConnection {
+    public boolean adicionar(Especie es) {
+        String sql = "INSERT INTO es(esp_descripcion, esp_estado) VALUES (?, ?)";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, es.getEspDescripcion());
+            ps.setString(2, es.getEspEstado());
+            int n = ps.executeUpdate();
+            if (n > 0) {
+                System.out.println("[ INFO ] Insert ejecutado con éxito");
+                return true;
+            }
+            this.desconectar();
+        } catch (SQLException e) {
+            System.out.println("[ ERROR ] Problemas al ejecutar Insert: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean buscarId(Especie es) {
+        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM es WHERE esp_id = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, es.getEspId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                es.setEspId(rs.getInt("esp_id"));
+                es.setEspDescripcion(rs.getString("esp_descripcion"));
+                es.setEspEstado(rs.getString("esp_estado"));
+                this.desconectar();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean eliminar(Especie es) {
+        String sql = "DELETE FROM es WHERE esp_id = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(0, es.getEspId());
+            int n = ps.executeUpdate();
+            if (n > 0) {
+                System.out.println("[ INFO ] Delete ejecutado con éxito");
+                return true;
+            }
+            this.desconectar();
+        } catch (SQLException e) {
+            System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //    public Boolean exist(Especie especie) {
+//        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie WHERE esp_id = ?";
+//        Connection conn = this.conectar();
+//        try {
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            ps.setInt(1, especie.getEspId());
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                especie.setEspId(rs.getInt("esp_id"));
+//                especie.setEspDescripcion(rs.getString("esp_descripcion"));
+//                especie.setEspEstado(rs.getString("esp_estado"));
+//                this.desconectar();
+//                return true;
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
     // opt: 0=Todos; 1=Solo activos
-    public List<Especie> getAll(int optEstado) {
+    public List<Especie> getTodos(int optEstado) {
         List<Especie> list = new ArrayList<>();
         String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie"
                 + (optEstado == 1 ? " WHERE esp_estado = ?" : "");
@@ -34,74 +112,14 @@ public class EspecieDao extends MySQLConnection {
         return null;
     }
 
-    public boolean getById(Especie especie) {
-        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie WHERE esp_id = ?";
+    public boolean modificar(Especie es) {
+        String sql = "UPDATE es SET esp_descripcion = ?, esp_estado = ? WHERE esp_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, especie.getEspId());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                especie.setEspId(rs.getInt("esp_id"));
-                especie.setEspDescripcion(rs.getString("esp_descripcion"));
-                especie.setEspEstado(rs.getString("esp_estado"));
-                this.desconectar();
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public Boolean exist(Especie especie) {
-        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie WHERE esp_id = ?";
-        Connection conn = this.conectar();
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, especie.getEspId());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                especie.setEspId(rs.getInt("esp_id"));
-                especie.setEspDescripcion(rs.getString("esp_descripcion"));
-                especie.setEspEstado(rs.getString("esp_estado"));
-                this.desconectar();
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean insert(Especie especie) {
-        String sql = "INSERT INTO especie(esp_descripcion, esp_estado) VALUES (?, ?)";
-        Connection conn = this.conectar();
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, especie.getEspDescripcion());
-            ps.setString(2, especie.getEspEstado());
-            int n = ps.executeUpdate();
-            if (n > 0) {
-                System.out.println("[ INFO ] Insert ejecutado con éxito");
-                return true;
-            }
-            this.desconectar();
-        } catch (SQLException e) {
-            System.out.println("[ ERROR ] Problemas al ejecutar Insert: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean update(Especie especie) {
-        String sql = "UPDATE especie SET esp_descripcion = ?, esp_estado = ? WHERE esp_id = ?";
-        Connection conn = this.conectar();
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, especie.getEspDescripcion());
-            ps.setString(2, especie.getEspEstado());
-            ps.setInt(3, especie.getEspId());
+            ps.setString(1, es.getEspDescripcion());
+            ps.setString(2, es.getEspEstado());
+            ps.setInt(3, es.getEspId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");
@@ -115,23 +133,5 @@ public class EspecieDao extends MySQLConnection {
         return false;
     }
 
-    public boolean delete(Especie especie) {
-        String sql = "DELETE FROM especie WHERE esp_id = ?";
-        Connection conn = this.conectar();
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, especie.getEspId());
-            int n = ps.executeUpdate();
-            if (n > 0) {
-                System.out.println("[ INFO ] Delete ejecutado con éxito");
-                return true;
-            }
-            this.desconectar();
-        } catch (SQLException e) {
-            System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return false;
-    }
 
 }

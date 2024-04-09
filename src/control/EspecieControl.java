@@ -95,7 +95,7 @@ public class EspecieControl implements ActionListener {
     private void adicionar() {
         this.model.setEspDescripcion(this.view.txtEspecie.getText());
         this.model.setEspEstado(String.valueOf(this.view.cmbEstado.getSelectedItem()));
-        if (dao.insert(this.model)) {
+        if (dao.adicionar(this.model)) {
             listar();
             JOptionPane.showMessageDialog(null, "Registro creado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             this.limpiar();
@@ -104,7 +104,7 @@ public class EspecieControl implements ActionListener {
 
     private void buscar() {
         this.model.setEspId(Integer.parseInt(this.view.txtBuscar.getText()));
-        if (dao.getById(this.model)) {
+        if (dao.buscarId(this.model)) {
             this.limpiar();
             this.view.txtId.setText(String.valueOf(this.model.getEspId()));
             this.view.txtEspecie.setText(this.model.getEspDescripcion());
@@ -114,7 +114,7 @@ public class EspecieControl implements ActionListener {
 
     private void eliminar() {
         this.model.setEspId(Integer.parseInt(this.view.txtId.getText()));
-        if (dao.delete(this.model)) {
+        if (dao.eliminar(this.model)) {
             listar();
             JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             this.limpiar();
@@ -160,7 +160,7 @@ public class EspecieControl implements ActionListener {
         this.model.setEspId(Integer.parseInt(this.view.txtId.getText()));
         this.model.setEspDescripcion(this.view.txtEspecie.getText());
         this.model.setEspEstado(String.valueOf(this.view.cmbEstado.getSelectedItem()));
-        if (dao.update(this.model)) {
+        if (dao.modificar(this.model)) {
             listar();
             JOptionPane.showMessageDialog(null, "Registro modificado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             this.limpiar();
@@ -178,7 +178,7 @@ public class EspecieControl implements ActionListener {
         DefaultTableModel model = (DefaultTableModel) view.dataTable.getModel();
         model.setColumnIdentifiers(new Object[]{"Id", "Especie", "Estado"});
         model.setRowCount(0);
-        for (Especie e : dao.getAll(1)) {
+        for (Especie e : dao.getTodos(1)) {
             model.addRow(new Object[]{e.getEspId(), e.getEspDescripcion(), e.getEspEstado()});
         }
     }
