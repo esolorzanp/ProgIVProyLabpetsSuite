@@ -76,7 +76,7 @@ public class OrdenServicioDetalle {
 
     @Override
     public String toString() {
-        return "OrdenServicioDetalle{" +
+        return "OrdenServicioDetalle {" +
                 "dosId=" + dosId +
                 ", dosOsId=" + dosOsId +
                 ", dosExaId=" + dosExaId +
