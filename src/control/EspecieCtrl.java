@@ -9,12 +9,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 
-public class EspecieControl implements ActionListener {
+public class EspecieCtrl implements ActionListener {
     private Especie model;
     private final EspecieDao dao;
     private final EspecieView vista;
 
-    public EspecieControl(Especie model, EspecieDao dao, EspecieView vista) {
+    public EspecieCtrl(Especie model, EspecieDao dao, EspecieView vista) {
         this.model = model;
         this.dao = dao;
         this.vista = vista;

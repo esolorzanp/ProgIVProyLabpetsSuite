@@ -1,10 +1,6 @@
-import control.EspecieControl;
 import control.ExamenCtrl;
-import dao.EspecieDao;
 import dao.ExamenDao;
-import model.Especie;
 import model.Examen;
-import view.EspecieView;
 import view.ExamenFrm;
 
 public class Main {
@@ -12,7 +8,7 @@ public class Main {
 //        Especie model = new Especie();
 //        EspecieDao dao = new EspecieDao();
 //        EspecieView vista = new EspecieView();
-//        EspecieControl control = new EspecieControl(model, dao, vista);
+//        EspecieCtrl control = new EspecieCtrl(model, dao, vista);
 //        control.iniciar();
 
         Examen model = new Examen();
