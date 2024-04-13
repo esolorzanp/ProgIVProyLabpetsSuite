@@ -13,21 +13,19 @@ import java.util.List;
 public class ExamenDao extends MySQLConnection {
     public boolean adicionar(Examen ex) {
         String sql = "INSERT INTO examen " +
-                "(exa_id, " +
-                "exa_descripcion, " +
+                "(exa_descripcion, " +
                 "exa_valor, " +
                 "exa_tipo, " +
                 "exa_estado, " +
                 "exa_usu_anu, " +
                 "exa_fecha_anu) " +
-                "VALUES " +
-                "?, " +            // 0 exa_id
+                "VALUES (" +
                 "?, " +            // 1 exa_descripcion
                 "?, " +            // 2 exa_valor
                 "?, " +            // 3 exa_tipo
                 "?, " +            // 4 exa_estado
                 "?, " +            // 5 exa_usu_anu
-                "?)";              // 6 exa_fecha_anu
+                "?);";              // 6 exa_fecha_anu
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -58,7 +56,7 @@ public class ExamenDao extends MySQLConnection {
                 "    exa_estado, " +
                 "    exa_usu_anu, " +
                 "    exa_fecha_anu " +
-                "FROM ex " +
+                "FROM examen " +
                 "WHERE exa_estado = 'Activo' " +
                 "AND exa_id = ?";
         Connection conn = this.conectar();
@@ -68,6 +66,7 @@ public class ExamenDao extends MySQLConnection {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 ex.setExaId(rs.getInt("exa_id"));
+                ex.setExaDescripcion(rs.getString("exa_descripcion"));
                 ex.setExaValor(rs.getInt("exa_valor"));
                 ex.setExaTipo(rs.getString("exa_tipo"));
                 ex.setExaEstado(rs.getString("exa_estado"));
@@ -83,11 +82,11 @@ public class ExamenDao extends MySQLConnection {
     }
 
     public boolean eliminar(Examen ex) {
-        String sql = "DELETE FROM examen WHERE exa_id ?";
+        String sql = "DELETE FROM examen WHERE exa_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, ex.getExaId());
+            ps.setInt(1, ex.getExaId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
@@ -116,12 +115,11 @@ public class ExamenDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            if (optEstado == 1)
-                ps.setString(1, "Activo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Examen e = new Examen();
                 e.setExaId(rs.getInt("exa_id"));
+                e.setExaDescripcion(rs.getString("exa_descripcion"));
                 e.setExaValor(rs.getInt("exa_valor"));
                 e.setExaTipo(rs.getString("exa_tipo"));
                 e.setExaEstado(rs.getString("exa_estado"));
@@ -149,13 +147,13 @@ public class ExamenDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(0, ex.getExaDescripcion());
-            ps.setInt(1, ex.getExaValor());
-            ps.setString(2, ex.getExaTipo());
-            ps.setString(3, ex.getExaEstado());
-            ps.setString(4, ex.getExaUsuAnu());
-            ps.setTimestamp(5, ex.getExaFechaAnu());
-            ps.setInt(6, ex.getExaId());
+            ps.setString(1, ex.getExaDescripcion());
+            ps.setInt(2, ex.getExaValor());
+            ps.setString(3, ex.getExaTipo());
+            ps.setString(4, ex.getExaEstado());
+            ps.setString(5, ex.getExaUsuAnu());
+            ps.setTimestamp(6, ex.getExaFechaAnu());
+            ps.setInt(7, ex.getExaId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");

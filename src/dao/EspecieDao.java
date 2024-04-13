@@ -70,12 +70,10 @@ public class EspecieDao extends MySQLConnection {
     public List<Especie> getTodos(int optEstado) {
         List<Especie> list = new ArrayList<>();
         String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie"
-                + (optEstado == 1 ? " WHERE esp_estado = ?" : "");
+                + (optEstado == 1 ? " WHERE esp_estado = 'Activo'" : "");
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            if (optEstado == 1)
-                ps.setString(1, "Activo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Especie e = new Especie();

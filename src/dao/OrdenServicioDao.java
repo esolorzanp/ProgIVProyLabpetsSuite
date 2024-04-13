@@ -29,8 +29,7 @@ public class OrdenServicioDao extends MySQLConnection {
                 "os_fecha_anula, " +
                 "os_razon_anula, " +
                 "os_usuResultado_crea) " +
-                "VALUES " +
-                "?, " +             // 0  os_id,
+                "VALUES (" +
                 "?, " +             // 1  os_fecha,
                 "?, " +             // 2  os_vet_id,
                 "?, " +             // 3  os_mas_id,
@@ -133,7 +132,7 @@ public class OrdenServicioDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, os.getOsId());
+            ps.setInt(1, os.getOsId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
@@ -171,8 +170,6 @@ public class OrdenServicioDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            if (optEstado == 1)
-                ps.setString(1, "Activo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 OrdenServicio os = new OrdenServicio();
@@ -223,22 +220,22 @@ public class OrdenServicioDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setDate(0, os.getOsFecha());
-            ps.setInt(1, os.getOsVetId());
-            ps.setInt(2, os.getOsMasId());
-            ps.setString(3, os.getOsMasPropietario());
-            ps.setString(4, os.getOsEstado());
-            ps.setInt(5, os.getOsValorTotal());
-            ps.setInt(6, os.getOsAbono());
-            ps.setString(7, os.getOsObservaciones());
-            ps.setString(8, os.getOsObservacionesResultados());
-            ps.setString(9, os.getOsUsuCrea());
-            ps.setDate(10, os.getOsFechaCrea());
-            ps.setString(11, os.getOsUsuAnula());
-            ps.setDate(12, os.getOsFechaAnula());
-            ps.setString(13, os.getOsRazonAnula());
-            ps.setString(14, os.getOsUsuResultadoCrea());
-            ps.setDate(15, os.getOsFecha());
+            ps.setDate(1, os.getOsFecha());
+            ps.setInt(2, os.getOsVetId());
+            ps.setInt(3, os.getOsMasId());
+            ps.setString(4, os.getOsMasPropietario());
+            ps.setString(5, os.getOsEstado());
+            ps.setInt(6, os.getOsValorTotal());
+            ps.setInt(7, os.getOsAbono());
+            ps.setString(8, os.getOsObservaciones());
+            ps.setString(9, os.getOsObservacionesResultados());
+            ps.setString(10, os.getOsUsuCrea());
+            ps.setDate(11, os.getOsFechaCrea());
+            ps.setString(12, os.getOsUsuAnula());
+            ps.setDate(13, os.getOsFechaAnula());
+            ps.setString(14, os.getOsRazonAnula());
+            ps.setString(15, os.getOsUsuResultadoCrea());
+            ps.setInt(16, os.getOsId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");

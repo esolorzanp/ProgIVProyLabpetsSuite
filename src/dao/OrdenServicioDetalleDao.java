@@ -20,8 +20,7 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
                 "dos_exa_cantidad, " +
                 "dos_exa_observaciones) " +
                 "VALUES " +
-                "(?, " +            // 0 dos_id
-                "?, " +             // 1 dos_os_id
+                "(?, " +             // 1 dos_os_id
                 "?, " +             // 2 dos_exa_id
                 "?, " +             // 3 dos_exa_valor
                 "?, " +             // 4 dos_exa_cantidad
@@ -29,7 +28,6 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, osd.getDosId());
             ps.setInt(1, osd.getDosOsId());
             ps.setInt(2, osd.getDosExaId());
             ps.setInt(3, osd.getDosExaValor());
@@ -60,7 +58,7 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, osd.getDosId());
+            ps.setInt(1, osd.getDosId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 osd.setDosId(rs.getInt("dos_id"));
@@ -83,7 +81,7 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, osd.getDosId());
+            ps.setInt(1, osd.getDosId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
@@ -111,8 +109,6 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            if (optEstado == 1)
-                ps.setString(1, "Activo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 OrdenServicioDetalle osd = new OrdenServicioDetalle();

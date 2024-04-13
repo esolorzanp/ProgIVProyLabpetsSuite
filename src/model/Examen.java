@@ -2,6 +2,8 @@ package model;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Examen {
     private int exaId;
@@ -30,7 +32,7 @@ public class Examen {
         this.exaTipo = "";
         this.exaEstado = "Activo";
         this.exaUsuAnu = "";
-        this.exaFechaAnu = new Timestamp(0);
+        this.exaFechaAnu = null;
     }
 
     public int getExaId() {

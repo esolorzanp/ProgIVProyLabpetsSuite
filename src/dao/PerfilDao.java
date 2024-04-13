@@ -13,13 +13,11 @@ import java.util.List;
 public class PerfilDao extends MySQLConnection {
     public boolean adicionar(Perfil p) {
         String sql = "INSERT INTO perfil (per_id, per_descripcion, per_estado) VALUES\n" +
-                "(?, " +                    // 0 per_id
-                "?, " +                     // 1 per_descripcion
+                "(?, " +                     // 1 per_descripcion
                 "?); ";                     // 2 per_estado
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, p.getPerId());
             ps.setString(1, p.getPerDescripcion());
             ps.setString(2, p.getPerEstado());
             int n = ps.executeUpdate();
@@ -61,7 +59,7 @@ public class PerfilDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, p.getPerId());
+            ps.setInt(1, p.getPerId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
@@ -83,8 +81,6 @@ public class PerfilDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            if (optEstado == 1)
-                ps.setString(1, "Activo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Perfil p = new Perfil();
@@ -109,9 +105,9 @@ public class PerfilDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(0, p.getPerDescripcion());
-            ps.setString(1, p.getPerEstado());
-            ps.setInt(2, p.getPerId());
+            ps.setString(1, p.getPerDescripcion());
+            ps.setString(2, p.getPerEstado());
+            ps.setInt(3, p.getPerId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");

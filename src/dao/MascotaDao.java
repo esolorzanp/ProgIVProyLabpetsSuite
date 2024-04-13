@@ -26,8 +26,7 @@ public class MascotaDao extends MySQLConnection {
                 "fecha_anula, " +
                 "mas_estado) " +
                 "VALUES " +
-                "(?, " +           //  0 mas_id
-                "?, " +            //  1 mas_nombre
+                "(?, " +            //  1 mas_nombre
                 "?, " +            //  2 mas_edad
                 "?, " +            //  3 mas_propietario
                 "?, " +            //  4 mas_sexo
@@ -108,7 +107,7 @@ public class MascotaDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, m.getMasId());
+            ps.setInt(1, m.getMasId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
@@ -141,8 +140,6 @@ public class MascotaDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            if (optEstado == 1)
-                ps.setString(1, "Activo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Mascota m = new Mascota();
@@ -184,17 +181,17 @@ public class MascotaDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(0, m.getMasNombre());
-            ps.setInt(1, m.getMasEdad());
-            ps.setString(2, m.getMasPropietario());
-            ps.setString(3, m.getMasSexo());
-            ps.setInt(4, m.getRazaId());
-            ps.setString(5, m.getUsuCrea());
-            ps.setDate(6, m.getFechaCrea());
-            ps.setString(7, m.getUsuAnula());
-            ps.setDate(8, m.getFechaAnula());
-            ps.setString(9, m.getMasEstado());
-            ps.setInt(10, m.getMasId());
+            ps.setString(1, m.getMasNombre());
+            ps.setInt(2, m.getMasEdad());
+            ps.setString(3, m.getMasPropietario());
+            ps.setString(4, m.getMasSexo());
+            ps.setInt(5, m.getRazaId());
+            ps.setString(6, m.getUsuCrea());
+            ps.setDate(7, m.getFechaCrea());
+            ps.setString(8, m.getUsuAnula());
+            ps.setDate(9, m.getFechaAnula());
+            ps.setString(10, m.getMasEstado());
+            ps.setInt(11, m.getMasId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");
