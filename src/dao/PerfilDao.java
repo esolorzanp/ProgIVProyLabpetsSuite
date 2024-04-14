@@ -12,9 +12,9 @@ import java.util.List;
 
 public class PerfilDao extends MySQLConnection {
     public boolean adicionar(Perfil p) {
-        String sql = "INSERT INTO perfil (per_id, per_descripcion, per_estado) VALUES\n" +
+        String sql = "INSERT INTO perfil (per_descripcion, per_estado) VALUES " +
                 "(?, " +                     // 1 per_descripcion
-                "?); ";                     // 2 per_estado
+                "?) ";                     // 2 per_estado
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class PerfilDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, p.getPerId());
+            ps.setInt(1, p.getPerId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 p.setPerId(rs.getInt("per_id"));
@@ -55,7 +55,7 @@ public class PerfilDao extends MySQLConnection {
     }
 
     public boolean eliminar(Perfil p) {
-        String sql = "DELETE FROM perfil WHERE per_id ?";
+        String sql = "DELETE FROM perfil WHERE per_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

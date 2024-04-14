@@ -1,10 +1,14 @@
 import control.ExamenCtrl;
+import control.PerfilCtrl;
 import control.RazaCtrl;
 import dao.ExamenDao;
+import dao.PerfilDao;
 import dao.RazaDao;
 import model.Examen;
+import model.Perfil;
 import model.Raza;
 import view.ExamenFrm;
+import view.PerfilFrm;
 import view.RazaFrm;
 
 public class Main {
@@ -21,10 +25,16 @@ public class Main {
 //        ExamenCtrl control = new ExamenCtrl(model, dao, vista);
 //        control.iniciar();
 
-        Raza model = new Raza();
-        RazaDao dao = new RazaDao();
-        RazaFrm vista = new RazaFrm();
-        RazaCtrl control = new RazaCtrl(model, dao, vista);
+//        Raza model = new Raza();
+//        RazaDao dao = new RazaDao();
+//        RazaFrm vista = new RazaFrm();
+//        RazaCtrl control = new RazaCtrl(model, dao, vista);
+//        control.iniciar();
+
+        Perfil model = new Perfil();
+        PerfilDao dao = new PerfilDao();
+        PerfilFrm vista = new PerfilFrm();
+        PerfilCtrl control = new PerfilCtrl(model, dao, vista);
         control.iniciar();
     }
 }
