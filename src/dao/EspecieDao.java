@@ -9,7 +9,7 @@ import java.util.List;
 
 public class EspecieDao extends MySQLConnection {
     public boolean adicionar(Especie es) {
-        String sql = "INSERT INTO es(esp_descripcion, esp_estado) VALUES (?, ?)";
+        String sql = "INSERT INTO especie(esp_descripcion, esp_estado) VALUES (?, ?)";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -29,7 +29,7 @@ public class EspecieDao extends MySQLConnection {
     }
 
     public boolean buscarId(Especie es) {
-        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM es WHERE esp_id = ?";
+        String sql = "SELECT esp_id, esp_descripcion, esp_estado FROM especie WHERE esp_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -48,8 +48,32 @@ public class EspecieDao extends MySQLConnection {
         return false;
     }
 
+    public boolean buscarDescripcion(Especie es) {
+        String sql = "SELECT esp_id, " +
+                "esp_descripcion, " +
+                "esp_estado " +
+                "FROM especie " +
+                "WHERE esp_descripcion = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, es.getEspDescripcion());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                es.setEspId(rs.getInt("esp_id"));
+                es.setEspDescripcion(rs.getString("esp_descripcion"));
+                es.setEspEstado(rs.getString("esp_estado"));
+                this.desconectar();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean eliminar(Especie es) {
-        String sql = "DELETE FROM es WHERE esp_id = ?";
+        String sql = "DELETE FROM especie WHERE esp_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -91,7 +115,7 @@ public class EspecieDao extends MySQLConnection {
     }
 
     public boolean modificar(Especie es) {
-        String sql = "UPDATE es SET esp_descripcion = ?, esp_estado = ? WHERE esp_id = ?";
+        String sql = "UPDATE especie SET esp_descripcion = ?, esp_estado = ? WHERE esp_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

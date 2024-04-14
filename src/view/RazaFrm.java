@@ -3,16 +3,18 @@ package view;
 import javax.swing.*;
 
 public class RazaFrm extends JFrame {
-    private JPanel panel1;
-    private JTable dataTable;
-    private JTextField txtBuscar;
-    private JTextField txtDescripcion;
-    private JButton btnBbuscar;
-    private JButton btnLimpiar;
-    private JButton btnAdicionar;
-    private JButton btnModificar;
-    private JButton btnEliminar;
-    private JButton btnAnular;
-    private JLabel lblBuscar;
-    private JLabel lblRaza;
+    public JPanel panel1;
+    public JTable dataTable;
+    public JTextField txtBuscar;
+    public JTextField txtDescripcion;
+    public JComboBox cmbEspecie;
+    public JButton btnBuscar;
+    public JButton btnLimpiar;
+    public JButton btnAdicionar;
+    public JButton btnModificar;
+    public JButton btnEliminar;
+    public JButton btnAnular;
+    public JLabel lblBuscar;
+    public JLabel lblRaza;
+    public JLabel lblEspecie;
 }

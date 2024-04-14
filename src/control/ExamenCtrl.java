@@ -15,10 +15,10 @@ public class ExamenCtrl implements ActionListener {
     private ExamenDao dao;
     private ExamenFrm vista;
 
-    public ExamenCtrl(Examen model, ExamenDao dao, ExamenFrm view) {
+    public ExamenCtrl(Examen model, ExamenDao dao, ExamenFrm vista) {
         this.model = model;
         this.dao = dao;
-        this.vista = view;
+        this.vista = vista;
         this.vista.btnLimpiar.addActionListener(this);
         this.vista.btnBuscar.addActionListener(this);
         this.vista.btnAdicionar.addActionListener(this);
