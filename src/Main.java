@@ -1,13 +1,17 @@
 import control.ExamenCtrl;
+import control.LoginCtrl;
 import control.PerfilCtrl;
 import control.RazaCtrl;
 import dao.ExamenDao;
 import dao.PerfilDao;
 import dao.RazaDao;
+import dao.UsuarioDao;
 import model.Examen;
 import model.Perfil;
 import model.Raza;
+import model.Usuario;
 import view.ExamenFrm;
+import view.LoginFrm;
 import view.PerfilFrm;
 import view.RazaFrm;
 
@@ -31,10 +35,17 @@ public class Main {
 //        RazaCtrl control = new RazaCtrl(model, dao, vista);
 //        control.iniciar();
 
-        Perfil model = new Perfil();
-        PerfilDao dao = new PerfilDao();
-        PerfilFrm vista = new PerfilFrm();
-        PerfilCtrl control = new PerfilCtrl(model, dao, vista);
+//        Perfil model = new Perfil();
+//        PerfilDao dao = new PerfilDao();
+//        PerfilFrm vista = new PerfilFrm();
+//        PerfilCtrl control = new PerfilCtrl(model, dao, vista);
+//        control.iniciar();
+
+        Usuario model = new Usuario();
+        UsuarioDao dao = new UsuarioDao();
+        LoginFrm vista = new LoginFrm();
+        LoginCtrl control = new LoginCtrl(model, dao, vista);
         control.iniciar();
+
     }
 }
