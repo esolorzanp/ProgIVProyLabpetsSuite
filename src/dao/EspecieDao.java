@@ -18,12 +18,14 @@ public class EspecieDao extends MySQLConnection {
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Insert ejecutado con éxito");
+                this.desconectar();
                 return true;
             }
-            this.desconectar();
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Insert: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }
@@ -44,6 +46,8 @@ public class EspecieDao extends MySQLConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }
@@ -68,6 +72,8 @@ public class EspecieDao extends MySQLConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }
@@ -87,6 +93,8 @@ public class EspecieDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }
@@ -106,10 +114,11 @@ public class EspecieDao extends MySQLConnection {
                 e.setEspEstado(rs.getString("esp_estado"));
                 list.add(e);
             }
-            this.desconectar();
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return null;
     }
@@ -131,6 +140,8 @@ public class EspecieDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }

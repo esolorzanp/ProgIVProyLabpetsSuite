@@ -9,18 +9,20 @@ public class Veterinario {
     private String vetEmail;
     private String vetTel;
     private String vetVeterinaria;
+    private String vetDireccion;
     private String vetEstado;
     private String usuCrea;
     private Date fechaCrea;
     private String usuAnula;
     private Date fechaAnula;
 
-    public Veterinario(int vetId, String vetNombre, String vetEmail, String vetTel, String vetVeterinaria, String vetEstado, String usuCrea, Date fechaCrea, String usuAnula, Date fechaAnula) {
+    public Veterinario(int vetId, String vetNombre, String vetEmail, String vetTel, String vetVeterinaria, String vetDireccion, String vetEstado, String usuCrea, Date fechaCrea, String usuAnula, Date fechaAnula) {
         this.vetId = vetId;
         this.vetNombre = vetNombre;
         this.vetEmail = vetEmail;
         this.vetTel = vetTel;
         this.vetVeterinaria = vetVeterinaria;
+        this.vetDireccion = vetDireccion;
         this.vetEstado = vetEstado;
         this.usuCrea = usuCrea;
         this.fechaCrea = fechaCrea;
@@ -34,6 +36,7 @@ public class Veterinario {
         this.vetEmail = "";
         this.vetTel = "";
         this.vetVeterinaria = "";
+        this.vetDireccion = "";
         this.vetEstado = "";
         this.usuCrea = "";
         this.fechaCrea = null;
@@ -85,6 +88,14 @@ public class Veterinario {
         return vetEstado;
     }
 
+    public String getVetDireccion() {
+        return vetDireccion;
+    }
+
+    public void setVetDireccion(String vetDireccion) {
+        this.vetDireccion = vetDireccion;
+    }
+
     public void setVetEstado(String vetEstado) {
         this.vetEstado = vetEstado;
     }
@@ -129,6 +140,7 @@ public class Veterinario {
                 ", vetEmail='" + vetEmail + '\'' +
                 ", vetTel='" + vetTel + '\'' +
                 ", vetVeterinaria='" + vetVeterinaria + '\'' +
+                ", vetDireccion='" + vetDireccion + '\'' +
                 ", vetEstado='" + vetEstado + '\'' +
                 ", usuCrea='" + usuCrea + '\'' +
                 ", fechaCrea=" + fechaCrea +

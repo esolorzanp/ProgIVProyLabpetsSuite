@@ -17,9 +17,10 @@ public class Tercero {
     private Timestamp fechaCrea;
     private String usuAnula;
     private Timestamp fechaAnula;
+    private String razonAnula;
     private String estado;
 
-    public Tercero(int id, String tiDescripcion, String identificacion, String representanteLegal, String razonSocial, String direccion, String tel1, String tel2, String observaciones, String usuCrea, Timestamp fechaCrea, String usuAnula, Timestamp fechaAnula, String estado) {
+    public Tercero(int id, String tiDescripcion, String identificacion, String representanteLegal, String razonSocial, String direccion, String tel1, String tel2, String observaciones, String usuCrea, Timestamp fechaCrea, String usuAnula, Timestamp fechaAnula, String razonAnula, String estado) {
         Id = id;
         this.tiDescripcion = tiDescripcion;
         this.identificacion = identificacion;
@@ -33,6 +34,7 @@ public class Tercero {
         this.fechaCrea = fechaCrea;
         this.usuAnula = usuAnula;
         this.fechaAnula = fechaAnula;
+        this.razonAnula = razonAnula;
         this.estado = estado;
     }
 
@@ -50,6 +52,7 @@ public class Tercero {
         this.fechaCrea = new Timestamp(0);
         this.usuAnula = "";
         this.fechaAnula = new Timestamp(0);
+        this.razonAnula = razonAnula;
         this.estado = "Activo";
     }
 
@@ -157,6 +160,14 @@ public class Tercero {
         this.fechaAnula = fechaAnula;
     }
 
+    public String getRazonAnula() {
+        return razonAnula;
+    }
+
+    public void setRazonAnula(String razonAnula) {
+        this.razonAnula = razonAnula;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -181,6 +192,7 @@ public class Tercero {
                 ", fechaCrea=" + fechaCrea +
                 ", usuAnula='" + usuAnula + '\'' +
                 ", fechaAnula=" + fechaAnula +
+                ", razonAnula=" + razonAnula +
                 ", estado='" + estado + '\'' +
                 '}';
     }

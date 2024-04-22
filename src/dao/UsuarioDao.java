@@ -59,6 +59,8 @@ public class UsuarioDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Insert: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         this.desconectar();
         return false;
@@ -103,6 +105,8 @@ public class UsuarioDao extends MySQLConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         this.desconectar();
         return false;
@@ -147,6 +151,8 @@ public class UsuarioDao extends MySQLConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         this.desconectar();
         return false;
@@ -167,6 +173,8 @@ public class UsuarioDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         this.desconectar();
         return false;
@@ -213,6 +221,8 @@ public class UsuarioDao extends MySQLConnection {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         this.desconectar();
         return null;
@@ -258,8 +268,9 @@ public class UsuarioDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
-        this.desconectar();
         return false;
     }
 

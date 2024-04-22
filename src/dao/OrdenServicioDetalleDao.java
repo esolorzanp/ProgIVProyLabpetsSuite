@@ -36,12 +36,14 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Insert ejecutado con éxito");
+                this.desconectar();
                 return true;
             }
-            this.desconectar();
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Insert: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }
@@ -72,6 +74,8 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            this.desconectar();
         }
         return false;
     }
@@ -85,12 +89,15 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");
+                this.desconectar();
                 return true;
             }
-            this.desconectar();
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
+        }
+        finally {
+            this.desconectar();
         }
         return false;
     }
@@ -124,6 +131,8 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            this.desconectar();
         }
         return null;
     }
@@ -145,15 +154,18 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
             ps.setInt(3, osd.getDosExaId());
             ps.setInt(4, osd.getDosExaValor());
             ps.setString(5, osd.getDosExaCantidad());
-            ps.setString(6, osd.getDosExaObservaciones());int n = ps.executeUpdate();
+            ps.setString(6, osd.getDosExaObservaciones());
+            int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");
+                this.desconectar();
                 return true;
             }
-            this.desconectar();
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
+        }finally {
+            this.desconectar();
         }
         return false;
     }
