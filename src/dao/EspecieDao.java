@@ -83,7 +83,7 @@ public class EspecieDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, es.getEspId());
+            ps.setInt(1, es.getEspId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Delete ejecutado con éxito");

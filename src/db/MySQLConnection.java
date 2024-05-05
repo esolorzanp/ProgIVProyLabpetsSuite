@@ -8,9 +8,9 @@ public class MySQLConnection {
     private Connection connection;
     private String serverDb = "localhost";
     private String portDb = "3306";
-    private String dataBaseDb = "labpets2";
+    private String dataBaseDb = "labpets";
     private String userDb = "root";
-    private String passDb = "root";
+    private String passDb = "";
     private String urlDb = "jdbc:mysql://" + serverDb + ":" + portDb + '/' + dataBaseDb;
 
 

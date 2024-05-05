@@ -1,19 +1,7 @@
-import control.ExamenCtrl;
-import control.LoginCtrl;
-import control.PerfilCtrl;
-import control.RazaCtrl;
-import dao.ExamenDao;
-import dao.PerfilDao;
-import dao.RazaDao;
-import dao.UsuarioDao;
-import model.Examen;
-import model.Perfil;
-import model.Raza;
-import model.Usuario;
-import view.ExamenFrm;
-import view.LoginFrm;
-import view.PerfilFrm;
-import view.RazaFrm;
+import control.*;
+import dao.*;
+import model.*;
+import view.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,10 +29,23 @@ public class Main {
 //        PerfilCtrl control = new PerfilCtrl(model, dao, vista);
 //        control.iniciar();
 
-        Usuario model = new Usuario();
-        UsuarioDao dao = new UsuarioDao();
-        LoginFrm vista = new LoginFrm();
-        LoginCtrl control = new LoginCtrl(model, dao, vista);
+//        Usuario model = new Usuario();
+//        UsuarioDao dao = new UsuarioDao();
+//        LoginFrm vista = new LoginFrm();
+//        LoginCtrl control = new LoginCtrl(model, dao, vista);
+//        control.iniciar();
+
+//        Tercero model = new Tercero();
+//        TerceroDao dao = new TerceroDao();
+//        TerceroFrm vista = new TerceroFrm();
+//        TerceroCtrl control = new TerceroCtrl(model, dao, vista);
+//        control.iniciar();
+
+//        OrdenServicio model = new OrdenServicio();
+//        OrdenServicioDao dao = new OrdenServicioDao();
+        OrdenesServicioFrm vista = new OrdenesServicioFrm();
+//        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(model, dao, vista);
+        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(vista);
         control.iniciar();
 
     }
