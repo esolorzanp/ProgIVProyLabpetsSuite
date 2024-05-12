@@ -158,7 +158,7 @@ public class MascotaDao extends MySQLConnection {
                 m.setUsuCrea(rs.getString("usu_crea"));
                 m.setFechaCrea(rs.getDate("fecha_crea"));
                 m.setUsuAnula(rs.getString("usu_anula"));
-                m.setFechaAnula(rs.getDate("fecha_anula"));
+//                m.setFechaAnula(rs.getDate("fecha_anula"));
                 m.setMasEstado(rs.getString("mas_estado"));
                 list.add(m);
             }

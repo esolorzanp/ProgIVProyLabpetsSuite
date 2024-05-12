@@ -79,7 +79,42 @@ public class ExamenDao extends MySQLConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
+            this.desconectar();
+        }
+        return false;
+    }
+
+    public boolean buscarByDescripcion(Examen ex) {
+        String sql = "SELECT exa_id, " +
+                "    exa_descripcion, " +
+                "    exa_valor, " +
+                "    exa_tipo, " +
+                "    exa_estado, " +
+                "    exa_usu_anu, " +
+                "    exa_fecha_anu " +
+                "FROM examen " +
+                "WHERE exa_estado = 'Activo' " +
+                "AND exa_descripcion = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, ex.getExaDescripcion());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ex.setExaId(rs.getInt("exa_id"));
+                ex.setExaDescripcion(rs.getString("exa_descripcion"));
+                ex.setExaValor(rs.getInt("exa_valor"));
+                ex.setExaTipo(rs.getString("exa_tipo"));
+                ex.setExaEstado(rs.getString("exa_estado"));
+                ex.setExaUsuAnu(rs.getString("exa_usu_anu"));
+                ex.setExaFechaAnu(rs.getTimestamp("exa_fecha_anu"));
+                this.desconectar();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             this.desconectar();
         }
         return false;
@@ -100,7 +135,7 @@ public class ExamenDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;
@@ -171,7 +206,7 @@ public class ExamenDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;

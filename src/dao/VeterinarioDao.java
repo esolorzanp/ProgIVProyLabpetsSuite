@@ -140,7 +140,7 @@ public class VeterinarioDao extends MySQLConnection {
                 "usu_anula, " +
                 "fecha_anula " +
                 "FROM veterinario " +
-                (optEstado == 1 ? " WHERE estado = 'Activo';" : "");
+                (optEstado == 1 ? " WHERE vet_estado = 'Activo';" : "");
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -154,9 +154,9 @@ public class VeterinarioDao extends MySQLConnection {
                 v.setVetVeterinaria(rs.getString("vet_veterinaria"));
                 v.setVetEstado(rs.getString("vet_estado"));
                 v.setUsuCrea(rs.getString("usu_crea"));
-                v.setFechaCrea(rs.getDate("fecha_crea"));
+//                v.setFechaCrea(rs.getDate("fecha_crea"));
                 v.setUsuAnula(rs.getString("usu_anula"));
-                v.setFechaAnula(rs.getDate("fecha_anula"));
+//                v.setFechaAnula(rs.getDate("fecha_anula"));
                 list.add(v);
             }
             this.desconectar();

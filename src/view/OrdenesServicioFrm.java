@@ -4,11 +4,10 @@ import javax.swing.*;
 
 public class OrdenesServicioFrm extends JFrame{
     public JTable dataTable;
-    public JButton adicionarButton;
-    public JButton modificarButton;
-    public JButton eliminarButton;
-    public JButton limpiarButton;
-    private JButton gestionarSolicitudButton;
+    public JButton btnAdicionar;
+    public JButton btnModificar;
+    public JButton btnEliminar;
+    public JButton btnLimpiar;
     public JTextField txtNumero;
     public JTextField txtFecha;
     public JTextField txtTotal;
@@ -16,5 +15,6 @@ public class OrdenesServicioFrm extends JFrame{
     public JTextField txtSaldo;
     public JComboBox cmbMascota;
     public JComboBox cmbVeterinario;
+    public JComboBox cmbExamen;
     public JPanel panel1;
 }
