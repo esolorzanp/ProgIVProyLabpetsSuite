@@ -60,7 +60,7 @@ public class FrmOrdenServicioCtrl implements ActionListener {
 
         DefaultTableModel model = (DefaultTableModel) vista.dataTable.getModel();
         model.setRowCount(0); // Limpiar filas existentes
-        model.setColumnIdentifiers(new Object[]{"Examen", "Valor", "Cantidad","Total", "Observaciones"});
+        model.setColumnIdentifiers(new Object[]{"Examen", "Valor", "Cantidad", "Total", "Observaciones"});
         model.addTableModelListener((TableModelEvent e) -> dataTableControlModif(e));
     }
 
@@ -98,6 +98,8 @@ public class FrmOrdenServicioCtrl implements ActionListener {
                 if (examenDao.buscarByDescripcion(examen)) {
                     DefaultTableModel model = (DefaultTableModel) vista.dataTable.getModel();
                     model.addRow(new Object[]{examen.getExaDescripcion()
+                            , examen.getExaValor()
+                            , 1
                             , examen.getExaValor()
                     });
                 }
