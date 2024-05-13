@@ -87,7 +87,7 @@ public class PerfilCtrl implements ActionListener {
         this.vista.txtDescripcion.setFont(fontLabels);
 
         this.vista.setTitle("Perfiles");
-        this.vista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.vista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.vista.setContentPane(this.vista.panel1);
         this.vista.pack();
         this.vista.setVisible(true);

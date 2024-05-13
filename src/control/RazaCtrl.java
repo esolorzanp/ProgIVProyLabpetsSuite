@@ -104,7 +104,7 @@ public class RazaCtrl implements ActionListener {
         this.vista.txtBuscar.setFont(fontButtons);
 
         this.vista.setTitle("Razas");
-        this.vista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.vista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.vista.setContentPane(this.vista.panel1);
         this.vista.pack();
         this.vista.setVisible(true);

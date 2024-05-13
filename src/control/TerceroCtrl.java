@@ -122,7 +122,7 @@ public class TerceroCtrl implements ActionListener {
 //        this.vista.btnAnular.setFont(fontButtons);
 
         this.vista.setTitle("Terceros");
-        this.vista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.vista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.vista.setContentPane(this.vista.panel1);
         this.vista.pack();
         this.vista.setVisible(true);
