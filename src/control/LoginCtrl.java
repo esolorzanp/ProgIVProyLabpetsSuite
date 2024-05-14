@@ -3,6 +3,7 @@ package control;
 import dao.UsuarioDao;
 import model.Usuario;
 import view.LoginFrm;
+import view.MenuPrincipalFrm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,8 +42,12 @@ public class LoginCtrl implements ActionListener {
             if (this.model.getUsuLogin().equals(this.vista.txtUsuario.getText())
                     && this.model.getUsuPass().equals(this.vista.txtContrasena.getText()))
                 b = true;
-        if (b)
+        if (b) {
             JOptionPane.showMessageDialog(null, "Bienvenido... ingreso a la aplicación");
+            MenuPrincipalFrm vista = new MenuPrincipalFrm();
+            MenuPrincipalCtrl control = new MenuPrincipalCtrl(vista);
+            control.iniciar();
+        }
         else
             JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos");
     }
