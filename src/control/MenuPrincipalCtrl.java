@@ -71,7 +71,6 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista.miFormasPago = new JMenuItem("Formas de pago");
         this.vista.miFormasPago.setFont(fontLabels);
         this.vista.miFormasPago.addActionListener(this);
-        this.vista.miFormasPago.setEnabled(false);
         this.vista.jmMaestros.add(this.vista.miFormasPago);
 
         this.vista.miVeterinarios = new JMenuItem("Veterinarios");
@@ -181,6 +180,13 @@ public class MenuPrincipalCtrl implements ActionListener {
 //            VeterinarioFrm vista = new VeterinarioFrm();
 //            VeterinarioCtrl ctrl = new VeterinarioCtrl(model, dao, vista);
 //            ctrl.iniciar();
+        }
+        if (e.getSource() == this.vista.miFormasPago) {
+            FormaPago model = new FormaPago();
+            FormaPagoDao dao = new FormaPagoDao();
+            FormaPagoFrm vista = new FormaPagoFrm();
+            FormaPagoCtrl ctrl = new FormaPagoCtrl(model, dao, vista);
+            ctrl.iniciar();
         }
         if (e.getSource() == this.vista.miOrdenesServicio) {
             OrdenesServicioFrm vista = new OrdenesServicioFrm();
