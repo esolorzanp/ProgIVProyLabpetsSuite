@@ -2,7 +2,6 @@ package control;
 
 import dao.*;
 import model.*;
-import sun.misc.Perf;
 import view.*;
 
 import javax.swing.*;

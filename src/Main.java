@@ -1,4 +1,3 @@
-import com.sun.xml.internal.ws.assembler.jaxws.MustUnderstandTubeFactory;
 import control.*;
 import dao.*;
 import model.*;
@@ -30,11 +29,11 @@ public class Main {
 //        PerfilCtrl control = new PerfilCtrl(model, dao, vista);
 //        control.iniciar();
 
-        Usuario model = new Usuario();
-        UsuarioDao dao = new UsuarioDao();
-        LoginFrm vista = new LoginFrm();
-        LoginCtrl control = new LoginCtrl(model, dao, vista);
-        control.iniciar();
+//        Usuario model = new Usuario();
+//        UsuarioDao dao = new UsuarioDao();
+//        LoginFrm vista = new LoginFrm();
+//        LoginCtrl control = new LoginCtrl(model, dao, vista);
+//        control.iniciar();
 
 //        Tercero model = new Tercero();
 //        TerceroDao dao = new TerceroDao();
@@ -42,12 +41,12 @@ public class Main {
 //        TerceroCtrl control = new TerceroCtrl(model, dao, vista);
 //        control.iniciar();
 
-////        OrdenServicio model = new OrdenServicio();
-////        OrdenServicioDao dao = new OrdenServicioDao();
-//        OrdenesServicioFrm vista = new OrdenesServicioFrm();
-////        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(model, dao, vista);
-//        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(vista);
-//        control.iniciar();
+//        OrdenServicio model = new OrdenServicio();
+//        OrdenServicioDao dao = new OrdenServicioDao();
+        OrdenesServicioFrm vista = new OrdenesServicioFrm();
+//        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(model, dao, vista);
+        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(vista);
+        control.iniciar();
 
 //        MenuPrincipalFrm vista = new MenuPrincipalFrm();
 //        MenuPrincipalCtrl control = new MenuPrincipalCtrl(vista);

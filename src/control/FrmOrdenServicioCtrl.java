@@ -54,6 +54,7 @@ public class FrmOrdenServicioCtrl implements ActionListener {
         this.vista.setLocationRelativeTo(null);
 //        this.listar();
         this.vista.txtNumero.setText(String.valueOf(new MasterDao().autoIncrement("FV")));
+        this.vista.txtTotal.setEditable(false);
         llenarMarcota();
         llenarVeterinario();
         llenarExame();
@@ -102,9 +103,24 @@ public class FrmOrdenServicioCtrl implements ActionListener {
                             , 1
                             , examen.getExaValor()
                     });
+//                    double tot = Double.parseDouble(this.vista.txtTotal.getText());
+//                    this.vista.txtTotal.setText(String.valueOf(tot));
+                    calcTotal();
                 }
             }
         }
+    }
+
+    private void calcTotal() {
+        double tot = 0.0;
+        DefaultTableModel model = (DefaultTableModel) this.vista.dataTable.getModel();
+        int row = model.getRowCount();
+        for (int i = 0; i < row; i++) {
+            double prec = model.getValueAt(i, 1).toString().isEmpty() ? 0 : Double.parseDouble(model.getValueAt(i, 1).toString());
+            int cant = Integer.parseInt(model.getValueAt(i, 2).toString());
+            tot += (prec * cant);
+        }
+        this.vista.txtTotal.setText(String.valueOf(tot));
     }
 
     private void dataTableControlModif(TableModelEvent e) {
@@ -114,6 +130,7 @@ public class FrmOrdenServicioCtrl implements ActionListener {
             int cant = Integer.parseInt(model.getValueAt(row, 2).toString());
             double prec = Double.parseDouble(model.getValueAt(row, 1).toString());
             model.setValueAt(cant * prec, row, 3);
+            calcTotal();
         }
 
     }
