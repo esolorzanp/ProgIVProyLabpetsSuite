@@ -153,6 +153,13 @@ public class MenuPrincipalCtrl implements ActionListener {
             ExamenCtrl ctrl = new ExamenCtrl(model, dao, vista);
             ctrl.iniciar();
         }
+        if (e.getSource() == this.vista.miParametros) {
+            Parametro model = new Parametro();
+            ParametroDao dao = new ParametroDao();
+            ParametroFrm vista = new ParametroFrm();
+            ParametroCtrl ctrl = new ParametroCtrl(model, dao, vista);
+            ctrl.iniciar();
+        }
         if (e.getSource() == this.vista.miRazas) {
             Raza model = new Raza();
             RazaDao dao = new RazaDao();
