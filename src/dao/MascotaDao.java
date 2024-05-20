@@ -1,6 +1,5 @@
 package dao;
 
-import com.mysql.cj.jdbc.exceptions.MySQLQueryInterruptedException;
 import db.MySQLConnection;
 import model.Mascota;
 

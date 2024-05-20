@@ -75,7 +75,6 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista.miVeterinarios = new JMenuItem("Veterinarios");
         this.vista.miVeterinarios.setFont(fontLabels);
         this.vista.miVeterinarios.addActionListener(this);
-        this.vista.miVeterinarios.setEnabled(false);
         this.vista.jmMaestros.add(this.vista.miVeterinarios);
 
         this.vista.miSalir = new JMenuItem("Salir");
@@ -183,9 +182,9 @@ public class MenuPrincipalCtrl implements ActionListener {
         if (e.getSource() == this.vista.miVeterinarios) {
             Veterinario model = new Veterinario();
             VeterinarioDao dao = new VeterinarioDao();
-//            VeterinarioFrm vista = new VeterinarioFrm();
-//            VeterinarioCtrl ctrl = new VeterinarioCtrl(model, dao, vista);
-//            ctrl.iniciar();
+            VeterinarioFrm vista = new VeterinarioFrm();
+            VeterinarioCtrl ctrl = new VeterinarioCtrl(model, dao, vista);
+            ctrl.iniciar();
         }
         if (e.getSource() == this.vista.miFormasPago) {
             FormaPago model = new FormaPago();

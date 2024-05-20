@@ -152,11 +152,12 @@ public class VeterinarioDao extends MySQLConnection {
                 v.setVetEmail(rs.getString("vet_email"));
                 v.setVetTel(rs.getString("vet_tel"));
                 v.setVetVeterinaria(rs.getString("vet_veterinaria"));
+                v.setVetDireccion(rs.getString("vet_direccion"));
                 v.setVetEstado(rs.getString("vet_estado"));
                 v.setUsuCrea(rs.getString("usu_crea"));
-//                v.setFechaCrea(rs.getDate("fecha_crea"));
+                v.setFechaCrea(rs.getDate("fecha_crea"));
                 v.setUsuAnula(rs.getString("usu_anula"));
-//                v.setFechaAnula(rs.getDate("fecha_anula"));
+                v.setFechaAnula(rs.getDate("fecha_anula"));
                 list.add(v);
             }
             this.desconectar();
@@ -196,7 +197,7 @@ public class VeterinarioDao extends MySQLConnection {
             ps.setDate(8, v.getFechaCrea());
             ps.setString(9, v.getUsuAnula());
             ps.setDate(10, v.getFechaAnula());
-            ps.setInt(10, v.getVetId());
+            ps.setInt(11, v.getVetId());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Update ejecutado con éxito");
