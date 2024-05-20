@@ -103,7 +103,6 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista.miEgresos = new JMenuItem("Egresos");
         this.vista.miEgresos.setFont(fontLabels);
         this.vista.miEgresos.addActionListener(this);
-        this.vista.miEgresos.setEnabled(false);
         this.vista.jmMovimientos.add(this.vista.miEgresos);
 
         /*
@@ -222,9 +221,9 @@ public class MenuPrincipalCtrl implements ActionListener {
         if (e.getSource() == this.vista.miEgresos) {
 //            Usuario model = new Usuario();
 //            UsuarioDao dao = new UsuarioDao();
-//            UsuarioFrm vista = new UsuarioFrm();
-//            UsuarioCtrl ctrl = new UsuarioCtrl(model, dao, vista);
-//            ctrl.iniciar();
+            ComprobanteEgresoFrm vista = new ComprobanteEgresoFrm();
+            ComprobanteEgresoCtrl ctrl = new ComprobanteEgresoCtrl(vista);
+            ctrl.iniciar();
         }
         if (e.getSource() == this.vista.miSalir) {
             System.exit(0);

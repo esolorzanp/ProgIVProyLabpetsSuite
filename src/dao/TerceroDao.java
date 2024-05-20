@@ -165,8 +165,8 @@ public class TerceroDao extends MySQLConnection {
                 "fecha_anula, " +
                 "razon_anula, " +
                 "estado " +
-                "FROM terceros ";
-//                + (optEstado == 1 ? " WHERE estado = 'Activo'" : "");
+                "FROM terceros " +
+                (optEstado == 1 ? " WHERE estado = 'Activo'" : "");
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -177,6 +177,7 @@ public class TerceroDao extends MySQLConnection {
                 t.setTiDescripcion(rs.getString("ti_descripcion"));
                 t.setIdentificacion(rs.getString("identificacion"));
                 t.setRepresentanteLegal(rs.getString("representante_legal"));
+                t.setRazonSocial(rs.getString("razon_social"));
                 t.setDireccion(rs.getString("direccion"));
                 t.setTel1(rs.getString("tel1"));
                 t.setTel2(rs.getString("tel2"));
@@ -184,7 +185,7 @@ public class TerceroDao extends MySQLConnection {
                 t.setUsuCrea(rs.getString("usu_crea"));
                 t.setFechaCrea(rs.getTimestamp("fecha_crea"));
                 t.setUsuAnula(rs.getString("usu_anula"));
-//                t.setFechaAnula(rs.getTimestamp("fecha_anula"));
+                t.setFechaAnula(rs.getTimestamp("fecha_anula"));
                 t.setRazonAnula(rs.getString("razon_anula"));
                 t.setEstado(rs.getString("estado"));
                 list.add(t);
