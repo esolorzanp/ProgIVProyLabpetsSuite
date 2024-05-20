@@ -14,8 +14,7 @@ import java.util.List;
 public class MascotaDao extends MySQLConnection {
     public boolean adicionar(Mascota m) {
         String sql = "INSERT INTO mascota " +
-                "(mas_id, " +
-                "mas_nombre, " +
+                "(mas_nombre, " +
                 "mas_edad, " +
                 "mas_propietario, " +
                 "mas_sexo, " +
@@ -49,6 +48,7 @@ public class MascotaDao extends MySQLConnection {
             ps.setString(8, m.getUsuAnula());
             ps.setDate(9, m.getFechaAnula());
             ps.setString(10, m.getMasEstado());
+            System.out.println(sql);
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Insert ejecutado con éxito");
@@ -77,7 +77,7 @@ public class MascotaDao extends MySQLConnection {
                 "    fecha_anula, " +
                 "    mas_estado " +
                 "FROM mascota " +
-                "WHERE mas_id ) ?";
+                "WHERE mas_id = ?";
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -158,7 +158,7 @@ public class MascotaDao extends MySQLConnection {
                 m.setUsuCrea(rs.getString("usu_crea"));
                 m.setFechaCrea(rs.getDate("fecha_crea"));
                 m.setUsuAnula(rs.getString("usu_anula"));
-//                m.setFechaAnula(rs.getDate("fecha_anula"));
+                m.setFechaAnula(rs.getDate("fecha_anula"));
                 m.setMasEstado(rs.getString("mas_estado"));
                 list.add(m);
             }

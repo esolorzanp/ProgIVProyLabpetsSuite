@@ -60,7 +60,6 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista.miMascotas = new JMenuItem("Mascotas");
         this.vista.miMascotas.setFont(fontLabels);
         this.vista.miMascotas.addActionListener(this);
-        this.vista.miMascotas.setEnabled(false);
         this.vista.jmMaestros.add(this.vista.miMascotas);
 
         this.vista.miTerceros = new JMenuItem("Terceros");
@@ -171,8 +170,8 @@ public class MenuPrincipalCtrl implements ActionListener {
             Mascota model = new Mascota();
             MascotaDao dao = new MascotaDao();
             MascotaFrm vista = new MascotaFrm();
-//            MascotaCtrl ctrl = new MascotaCtrl(model, dao, vista);
-//            ctrl.iniciar();
+            MascotaCtrl ctrl = new MascotaCtrl(model, dao, vista);
+            ctrl.iniciar();
         }
         if (e.getSource() == this.vista.miTerceros) {
             Tercero model = new Tercero();

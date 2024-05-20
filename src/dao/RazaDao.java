@@ -73,6 +73,38 @@ public class RazaDao extends MySQLConnection {
         return false;
     }
 
+    public boolean buscarByNombew(Raza rz) {
+        String sql = "SELECT r.raza_id, " +
+                "r.raza_descripcion, " +
+                "r.raza_estado, " +
+                "r.esp_id, " +
+                "e.esp_descripcion, " +
+                "e.esp_estado " +
+                "FROM raza r " +
+                "INNER JOIN especie e ON r.esp_id = e.esp_id " +
+                "WHERE r.raza_estado = 'Activo' " +
+                "AND r.raza_descripcion = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, rz.getRazaDescripcion());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                rz.setRazaId(rs.getInt("raza_id"));
+                rz.setRazaDescripcion(rs.getString("raza_descripcion"));
+                rz.setRazaEstado(rs.getString("raza_estado"));
+                rz.setEspId(rs.getInt("esp_id"));
+                this.desconectar();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+        return false;
+    }
+
     public boolean eliminar(Raza rz) {
         String sql = "DELETE FROM raza WHERE raza_id = ?";
         Connection conn = this.conectar();
