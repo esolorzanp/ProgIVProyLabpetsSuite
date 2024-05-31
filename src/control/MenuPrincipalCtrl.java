@@ -18,7 +18,7 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista = vista;
 //        this.vista.btnLimpiar.addActionListener(this);
 //        this.vista.btnBuscar.addActionListener(this);
-//        this.vista.btnAdicionar.addActionListener(this);
+//        this.vista.btnAgregar.addActionListener(this);
 //        this.vista.btnModificar.addActionListener(this);
 //        this.vista.btnEliminar.addActionListener(this);
     }

@@ -104,6 +104,48 @@ public class VeterinarioDao extends MySQLConnection {
         return false;
     }
 
+    public boolean buscarByNombre(Veterinario v) {
+        String sql = "SELECT vet_id, " +
+                "vet_nombre, " +
+                "vet_email, " +
+                "vet_tel, " +
+                "vet_veterinaria, " +
+                "vet_direccion, " +
+                "vet_estado, " +
+                "usu_crea, " +
+                "fecha_crea, " +
+                "usu_anula, " +
+                "fecha_anula " +
+                "FROM veterinario " +
+                "WHERE vet_estado = 'Activo' " +
+                "AND vet_nombre = ? ";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, v.getVetNombre());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                v.setVetId(rs.getInt("vet_id"));
+                v.setVetNombre(rs.getString("vet_nombre"));
+                v.setVetEmail(rs.getString("vet_email"));
+                v.setVetTel(rs.getString("vet_tel"));
+                v.setVetVeterinaria(rs.getString("vet_veterinaria"));
+                v.setVetEstado(rs.getString("vet_estado"));
+                v.setUsuCrea(rs.getString("usu_crea"));
+                v.setFechaCrea(rs.getDate("fecha_crea"));
+                v.setUsuAnula(rs.getString("usu_anula"));
+                v.setFechaAnula(rs.getDate("fecha_anula"));
+                this.desconectar();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+        return false;
+    }
+
     public boolean eliminar(Veterinario v) {
         String sql = "DELETE FROM veterinario WHERE vet_id = ?";
         Connection conn = this.conectar();

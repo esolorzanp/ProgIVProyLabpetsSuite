@@ -30,39 +30,41 @@ public class OrdenServicioDao extends MySQLConnection {
                 "os_razon_anula, " +
                 "os_usuResultado_crea) " +
                 "VALUES (" +
-                "?, " +             // 1  os_fecha,
-                "?, " +             // 2  os_vet_id,
-                "?, " +             // 3  os_mas_id,
-                "?, " +             // 4  os_mas_propietario,
-                "?, " +             // 5  os_estado,
-                "?, " +             // 6  os_valor_total,
-                "?, " +             // 7  os_abono,
-                "?, " +             // 8  os_observaciones,
-                "?, " +             // 9  os_observacionesResultados,
-                "?, " +             // 10 os_usu_crea,
-                "?, " +             // 11 os_fecha_crea,
-                "?, " +             // 12 os_usu_anula,
-                "?, " +             // 13 os_fecha_anula,
-                "?, " +             // 14 os_razon_anula,
-                "? ";               // 15 os_usuResultado_crea
+                "?, " +             // 1  os_id,
+                "?, " +             // 2  os_fecha,
+                "?, " +             // 3  os_vet_id,
+                "?, " +             // 4  os_mas_id,
+                "?, " +             // 5  os_mas_propietario,
+                "?, " +             // 6  os_estado,
+                "?, " +             // 7  os_valor_total,
+                "?, " +             // 8  os_abono,
+                "?, " +             // 9  os_observaciones,
+                "?, " +             // 10  os_observacionesResultados,
+                "?, " +             // 11 os_usu_crea,
+                "?, " +             // 12 os_fecha_crea,
+                "?, " +             // 13 os_usu_anula,
+                "?, " +             // 14 os_fecha_anula,
+                "?, " +             // 15 os_razon_anula,
+                "?) ";              // 16 os_usuResultado_crea
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setDate(1, os.getOsFecha());
-            ps.setInt(2, os.getOsVetId());
-            ps.setInt(3, os.getOsMasId());
-            ps.setString(4, os.getOsMasPropietario());
-            ps.setString(5, os.getOsEstado());
-            ps.setInt(6, os.getOsValorTotal());
-            ps.setInt(7, os.getOsAbono());
-            ps.setString(8, os.getOsObservaciones());
-            ps.setString(9, os.getOsObservacionesResultados());
-            ps.setString(10, os.getOsUsuCrea());
-            ps.setDate(11, os.getOsFechaCrea());
-            ps.setString(12, os.getOsUsuAnula());
-            ps.setDate(13, os.getOsFechaAnula());
-            ps.setString(14, os.getOsRazonAnula());
-            ps.setString(15, os.getOsUsuResultadoCrea());
+            ps.setInt(1, os.getOsId());
+            ps.setDate(2, os.getOsFecha());
+            ps.setInt(3, os.getOsVetId());
+            ps.setInt(4, os.getOsMasId());
+            ps.setString(5, os.getOsMasPropietario());
+            ps.setString(6, os.getOsEstado());
+            ps.setInt(7, os.getOsValorTotal());
+            ps.setInt(8, os.getOsAbono());
+            ps.setString(9, os.getOsObservaciones());
+            ps.setString(10, os.getOsObservacionesResultados());
+            ps.setString(11, os.getOsUsuCrea());
+            ps.setDate(12, os.getOsFechaCrea());
+            ps.setString(13, os.getOsUsuAnula());
+            ps.setDate(14, os.getOsFechaAnula());
+            ps.setString(15, os.getOsRazonAnula());
+            ps.setString(16, os.getOsUsuResultadoCrea());
             int n = ps.executeUpdate();
             if (n > 0) {
                 System.out.println("[ INFO ] Insert ejecutado con éxito");

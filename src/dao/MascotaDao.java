@@ -105,6 +105,48 @@ public class MascotaDao extends MySQLConnection {
         return false;
     }
 
+    public boolean buscarByNombre(Mascota m) {
+        String sql = "SELECT mas_id," +
+                "    mas_nombre, " +
+                "    mas_edad, " +
+                "    mas_propietario, " +
+                "    mas_sexo, " +
+                "    raza_id, " +
+                "    usu_crea, " +
+                "    fecha_crea, " +
+                "    usu_anula, " +
+                "    fecha_anula, " +
+                "    mas_estado " +
+                "FROM mascota " +
+                "WHERE mas_nombre = ?";
+        Connection conn = this.conectar();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, m.getMasNombre());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                m.setMasId(rs.getInt("mas_id"));
+                m.setMasNombre(rs.getString("mas_nombre"));
+                m.setMasEdad(rs.getInt("mas_edad"));
+                m.setMasPropietario(rs.getString("mas_propietario"));
+                m.setMasSexo(rs.getString("mas_sexo"));
+                m.setRazaId(rs.getInt("raza_id"));
+                m.setUsuCrea(rs.getString("usu_crea"));
+                m.setFechaCrea(rs.getDate("fecha_crea"));
+                m.setUsuAnula(rs.getString("usu_anula"));
+                m.setFechaAnula(rs.getDate("fecha_anula"));
+                m.setMasEstado(rs.getString("mas_estado"));
+                this.desconectar();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+        return false;
+    }
+
     public boolean eliminar(Mascota m) {
         String sql = "DELETE FROM mascota WHERE mas_id = ?";
         Connection conn = this.conectar();
@@ -120,7 +162,7 @@ public class MascotaDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;
@@ -165,7 +207,7 @@ public class MascotaDao extends MySQLConnection {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return null;
@@ -208,7 +250,7 @@ public class MascotaDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;

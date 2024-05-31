@@ -127,7 +127,7 @@ public class ExamenCtrl implements ActionListener {
         this.vista.txtBuscar.setText("");
         this.vista.txtDescripcion.setText("");
         this.vista.txtValor.setText("");
-        this.vista.txtValor.setText("");
+        this.vista.txtTipo.setText("");
     }
 
     private void modificar() {

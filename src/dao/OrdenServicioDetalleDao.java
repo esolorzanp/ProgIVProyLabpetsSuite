@@ -13,8 +13,7 @@ import java.util.List;
 public class OrdenServicioDetalleDao extends MySQLConnection {
     public boolean adicionar(OrdenServicioDetalle osd) {
         String sql = "INSERT INTO orden_servicio_detalle " +
-                "(dos_id, " +
-                "dos_os_id, " +
+                "(dos_os_id, " +
                 "dos_exa_id, " +
                 "dos_exa_valor, " +
                 "dos_exa_cantidad, " +
