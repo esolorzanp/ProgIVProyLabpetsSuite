@@ -103,7 +103,7 @@ public class OrdenServicioDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(0, os.getOsId());
+            ps.setInt(1, os.getOsId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 os.setOsId(rs.getInt("os_id"));

@@ -41,8 +41,8 @@ public class Main {
 //        TerceroCtrl control = new TerceroCtrl(model, dao, vista);
 //        control.iniciar();
 
-////        OrdenServicio model = new OrdenServicio();
-////        OrdenServicioDao dao = new OrdenServicioDao();
+//        OrdenServicio model = new OrdenServicio();
+//        OrdenServicioDao dao = new OrdenServicioDao();
 //        OrdenesServicioFrm vista = new OrdenesServicioFrm();
 ////        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(model, dao, vista);
 //        FrmOrdenServicioCtrl control = new FrmOrdenServicioCtrl(vista);

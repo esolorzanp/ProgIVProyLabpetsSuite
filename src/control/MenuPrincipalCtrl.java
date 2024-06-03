@@ -97,7 +97,6 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista.miResultados = new JMenuItem("Resultados");
         this.vista.miResultados.setFont(fontLabels);
         this.vista.miResultados.addActionListener(this);
-        this.vista.miResultados.setEnabled(false);
         this.vista.jmMovimientos.add(this.vista.miResultados);
 
         this.vista.miEgresos = new JMenuItem("Egresos");
@@ -195,6 +194,11 @@ public class MenuPrincipalCtrl implements ActionListener {
         if (e.getSource() == this.vista.miOrdenesServicio) {
             OrdenesServicioFrm vista = new OrdenesServicioFrm();
             FrmOrdenServicioCtrl ctrl = new FrmOrdenServicioCtrl(vista);
+            ctrl.iniciar();
+        }
+        if (e.getSource() == this.vista.miResultados) {
+            OrdenesServicioResultadoFrm vista = new OrdenesServicioResultadoFrm();
+            OrdenesServicioResultadoCtrl ctrl = new OrdenesServicioResultadoCtrl(vista);
             ctrl.iniciar();
         }
         if (e.getSource() == this.vista.miPerfiles) {

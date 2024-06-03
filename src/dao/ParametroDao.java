@@ -1,6 +1,8 @@
 package dao;
 
 import db.MySQLConnection;
+import model.Examen;
+import model.ExamenParametro;
 import model.Parametro;
 
 import java.sql.Connection;
@@ -119,7 +121,7 @@ public class ParametroDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;
@@ -164,7 +166,7 @@ public class ParametroDao extends MySQLConnection {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return null;
@@ -207,7 +209,7 @@ public class ParametroDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;

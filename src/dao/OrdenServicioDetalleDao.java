@@ -1,6 +1,7 @@
 package dao;
 
 import db.MySQLConnection;
+import model.OrdenServicio;
 import model.OrdenServicioDetalle;
 
 import java.sql.Connection;
@@ -94,15 +95,14 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Delete: " + e.getMessage());
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             this.desconectar();
         }
         return false;
     }
 
     // opt: 0=Todos; 1=Solo activos
-    public List<OrdenServicioDetalle> getTodos(int optEstado) {
+    public List<OrdenServicioDetalle> getTodos(OrdenServicio os) {
         List<OrdenServicioDetalle> list = new ArrayList<>();
         String sql = "SELECT dos_id, " +
                 "    dos_os_id, " +
@@ -115,6 +115,7 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         Connection conn = this.conectar();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, os.getOsId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 OrdenServicioDetalle osd = new OrdenServicioDetalle();
@@ -130,7 +131,7 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return null;
@@ -163,7 +164,7 @@ public class OrdenServicioDetalleDao extends MySQLConnection {
         } catch (SQLException e) {
             System.out.println("[ ERROR ] Problemas al ejecutar Update: " + e.getMessage());
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return false;
