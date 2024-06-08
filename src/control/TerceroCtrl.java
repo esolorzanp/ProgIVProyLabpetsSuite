@@ -126,7 +126,7 @@ public class TerceroCtrl implements ActionListener {
         this.vista.setContentPane(this.vista.panel1);
         this.vista.pack();
         this.vista.setVisible(true);
-        this.vista.setSize(600, 650);
+        this.vista.setSize(1000, 650);
         this.vista.setLocationRelativeTo(null);
         this.listar();
     }

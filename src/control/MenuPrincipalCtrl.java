@@ -128,7 +128,7 @@ public class MenuPrincipalCtrl implements ActionListener {
         this.vista.pack();
         this.vista.setVisible(true);
         this.vista.setSize(600, 450);
-//        this.vista.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.vista.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.vista.setLocationRelativeTo(null);
         this.vista.setVisible(true);
     }
